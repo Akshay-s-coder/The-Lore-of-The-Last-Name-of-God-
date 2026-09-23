@@ -1,0 +1,3906 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="
+        width=device-width,
+        initial-scale=1,
+        maximum-scale=1,
+        user-scalable=no,
+        viewport-fit=cover
+    "
+>
+
+<meta name="theme-color" content="#030202">
+
+<title>
+    The Lore of The Last Name of God
+</title>
+
+
+<style>
+
+/* ============================================================
+   THE LORE OF THE LAST NAME OF GOD
+   DYNAMIC PNG LOREBOOK ENGINE
+   ============================================================ */
+
+
+/* ============================================================
+   ROOT
+   ============================================================ */
+
+:root{
+
+    --book-width:
+        min(94vw, 1500px);
+
+    --book-height:
+        min(84vh, 850px);
+
+    --gold:
+        #c8a15a;
+
+    --gold-light:
+        #e3c982;
+
+    --dark-red:
+        #4b080f;
+
+    --deep-red:
+        #210306;
+
+    --black:
+        #030202;
+
+    --paper:
+        #cdb98a;
+
+}
+
+
+/* ============================================================
+   RESET
+   ============================================================ */
+
+*{
+
+    box-sizing:
+        border-box;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+}
+
+
+html,
+body{
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    margin:
+        0;
+
+    overflow:
+        hidden;
+
+}
+
+
+body{
+
+    background:
+        #030202;
+
+    color:
+        var(--gold-light);
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    user-select:
+        none;
+
+    -webkit-user-select:
+        none;
+
+    touch-action:
+        none;
+
+}
+
+
+/* ============================================================
+   STAGE
+   ============================================================ */
+
+#stage{
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    overflow:
+        hidden;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            #25070a 0%,
+            #0c0305 42%,
+            #030202 100%
+        );
+
+}
+
+
+#stage::after{
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+    z-index:
+        900;
+
+    background:
+
+        radial-gradient(
+            ellipse at center,
+            transparent 42%,
+            rgba(0,0,0,.72) 100%
+        );
+
+}
+
+
+/* ============================================================
+   BOOK
+   ============================================================ */
+
+#book{
+
+    position:
+        relative;
+
+    width:
+        var(--book-width);
+
+    height:
+        var(--book-height);
+
+    perspective:
+        2800px;
+
+    transform-style:
+        preserve-3d;
+
+    filter:
+        drop-shadow(
+            0 35px 35px rgba(0,0,0,.85)
+        );
+
+}
+
+
+/* ============================================================
+   PHYSICAL BOOK BODY
+   ============================================================ */
+
+.book-body{
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    z-index:
+        1;
+
+    border-radius:
+        9px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #110203 0%,
+            #4c090f 6%,
+            #210406 48%,
+            #500a10 94%,
+            #100203 100%
+        );
+
+    box-shadow:
+
+        inset 0 0 0 3px #080202,
+
+        inset 0 0 35px rgba(0,0,0,.9),
+
+        0 18px 0 #050202;
+
+}
+
+
+/* ============================================================
+   INNER BOOK
+   ============================================================ */
+
+.book-inner{
+
+    position:
+        absolute;
+
+    left:
+        4.6%;
+
+    right:
+        1.3%;
+
+    top:
+        1.5%;
+
+    bottom:
+        1.5%;
+
+    z-index:
+        5;
+
+    overflow:
+        hidden;
+
+    background:
+        #76613d;
+
+    box-shadow:
+
+        inset 0 0 25px rgba(0,0,0,.9),
+
+        0 0 0 2px #120904;
+
+}
+
+
+/* ============================================================
+   SPREAD
+   ============================================================ */
+
+#spread{
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--paper);
+
+}
+
+
+/*
+   When only ONE page remains, it occupies the
+   complete physical reading area.
+
+   This prevents an empty fake page from appearing.
+*/
+
+#spread.single-page{
+
+    grid-template-columns:
+        1fr;
+
+}
+
+
+/* ============================================================
+   PAGE
+   ============================================================ */
+
+.page{
+
+    position:
+        relative;
+
+    min-width:
+        0;
+
+    min-height:
+        0;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--paper);
+
+    box-shadow:
+        inset 0 0 35px rgba(45,25,5,.45);
+
+}
+
+
+/* ============================================================
+   PAGE IMAGE
+   ============================================================ */
+
+.page img{
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    pointer-events:
+        none;
+
+    -webkit-user-drag:
+        none;
+
+}
+
+
+/* ============================================================
+   PAGE LIGHTING
+   ============================================================ */
+
+.page::after{
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
+    box-shadow:
+
+        inset 0 0 25px
+        rgba(35,18,4,.42);
+
+}
+
+
+/* ============================================================
+   CENTER GUTTER
+   ============================================================ */
+
+.spine-shadow{
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    left:
+        50%;
+
+    width:
+        42px;
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        50;
+
+    pointer-events:
+        none;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.58),
+            rgba(255,255,255,.07),
+            rgba(0,0,0,.58)
+        );
+
+    box-shadow:
+        0 0 18px rgba(0,0,0,.45);
+
+}
+
+
+/*
+   Hide gutter when the last page occupies the
+   whole reading area.
+*/
+
+#spread.single-page .spine-shadow{
+
+    display:
+        none;
+
+}
+
+
+/* ============================================================
+   TURNING PAGE
+   ============================================================ */
+
+.turn-layer{
+
+    position:
+        absolute;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        50%;
+
+    z-index:
+        100;
+
+    display:
+        none;
+
+    transform-style:
+        preserve-3d;
+
+    pointer-events:
+        none;
+
+}
+
+
+.turn-layer.active{
+
+    display:
+        block;
+
+}
+
+
+.turn-layer.forward{
+
+    right:
+        0;
+
+    transform-origin:
+        left center;
+
+}
+
+
+.turn-layer.backward{
+
+    left:
+        0;
+
+    transform-origin:
+        right center;
+
+}
+
+
+.turn-face{
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--paper);
+
+    backface-visibility:
+        hidden;
+
+    box-shadow:
+
+        inset 0 0 28px
+        rgba(0,0,0,.4);
+
+}
+
+
+.turn-face img{
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    pointer-events:
+        none;
+
+}
+
+
+.turn-back{
+
+    transform:
+        rotateY(180deg);
+
+}
+
+
+/* ============================================================
+   SPINE
+   ============================================================ */
+
+.spine{
+
+    position:
+        absolute;
+
+    left:
+        0;
+
+    top:
+        0;
+
+    bottom:
+        0;
+
+    width:
+        5%;
+
+    z-index:
+        150;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #080202,
+            #411015 35%,
+            #170305 70%,
+            #050101
+        );
+
+    box-shadow:
+
+        inset -4px 0 8px #000,
+
+        inset 4px 0 8px
+        rgba(130,65,30,.2);
+
+}
+
+
+/* ============================================================
+   SPINE BANDS
+   ============================================================ */
+
+.spine-band{
+
+    position:
+        absolute;
+
+    left:
+        8%;
+
+    right:
+        5%;
+
+    height:
+        7%;
+
+    min-height:
+        25px;
+
+    border-top:
+        2px solid #8b6733;
+
+    border-bottom:
+        2px solid #4b321a;
+
+    background:
+
+        linear-gradient(
+            #32110e,
+            #6a2b1c,
+            #1d0707
+        );
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.7);
+
+}
+
+
+.spine-band:nth-child(1){
+
+    top:
+        8%;
+
+}
+
+
+.spine-band:nth-child(2){
+
+    top:
+        46%;
+
+}
+
+
+.spine-band:nth-child(3){
+
+    bottom:
+        8%;
+
+}
+
+
+/* ============================================================
+   FRONT COVER
+   ============================================================ */
+
+#cover{
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    z-index:
+        300;
+
+    transform-style:
+        preserve-3d;
+
+    transform-origin:
+        left center;
+
+    cursor:
+        grab;
+
+    will-change:
+        transform;
+
+    transition:
+
+        transform
+        .95s
+        cubic-bezier(.18,.78,.12,1);
+
+}
+
+
+/*
+   Cover open state.
+*/
+
+#cover.open{
+
+    transform:
+        rotateY(-168deg);
+
+    pointer-events:
+        none;
+
+}
+
+
+/* ============================================================
+   COVER FACES
+   ============================================================ */
+
+.cover-face{
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        6px;
+
+    backface-visibility:
+        hidden;
+
+}
+
+
+.cover-front{
+
+    background:
+        #120304;
+
+}
+
+
+.cover-front img{
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    pointer-events:
+        none;
+
+    -webkit-user-drag:
+        none;
+
+}
+
+
+/* ============================================================
+   COVER EDGE
+   ============================================================ */
+
+.cover-front::after{
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    border:
+        3px solid rgba(5,1,1,.9);
+
+    box-shadow:
+
+        inset 0 0 0 2px
+        rgba(208,164,79,.25),
+
+        inset 0 0 40px
+        rgba(0,0,0,.7);
+
+    pointer-events:
+        none;
+
+}
+
+
+/* ============================================================
+   BACK OF COVER
+   ============================================================ */
+
+.cover-back{
+
+    transform:
+        rotateY(180deg);
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #260609,
+            #5a1016,
+            #1c0305
+        );
+
+    box-shadow:
+        inset 0 0 35px rgba(0,0,0,.9);
+
+}
+
+
+.cover-back::after{
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        6%;
+
+    border:
+        1px solid #9b7637;
+
+    box-shadow:
+
+        inset 0 0 0 8px
+        rgba(30,5,6,.35);
+
+}
+
+
+/* ============================================================
+   SETTINGS BUTTON
+   ============================================================ */
+
+#settingsButton{
+
+    position:
+        fixed;
+
+    top:
+        max(
+            12px,
+            env(safe-area-inset-top)
+        );
+
+    right:
+        max(
+            12px,
+            env(safe-area-inset-right)
+        );
+
+    z-index:
+        1200;
+
+    width:
+        38px;
+
+    height:
+        38px;
+
+    border:
+        1px solid #76562b;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(10,3,4,.84);
+
+    color:
+        #d1ad63;
+
+    font-size:
+        17px;
+
+    opacity:
+        .45;
+
+    cursor:
+        pointer;
+
+}
+
+
+#settingsButton:hover{
+
+    opacity:
+        .95;
+
+}
+
+
+/* ============================================================
+   SETTINGS PANEL
+   ============================================================ */
+
+#settingsPanel{
+
+    position:
+        fixed;
+
+    top:
+        62px;
+
+    right:
+        14px;
+
+    z-index:
+        1300;
+
+    width:
+        min(
+            310px,
+            calc(100vw - 28px)
+        );
+
+    padding:
+        20px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            #210608,
+            #0b0203
+        );
+
+    border:
+        1px solid #76562a;
+
+    box-shadow:
+
+        0 20px 50px #000,
+
+        inset 0 0 25px #000;
+
+    color:
+        #d4b66f;
+
+    opacity:
+        0;
+
+    transform:
+        translateY(-10px)
+        scale(.97);
+
+    pointer-events:
+        none;
+
+    transition:
+        .2s;
+
+}
+
+
+#settingsPanel.show{
+
+    opacity:
+        1;
+
+    transform:
+        none;
+
+    pointer-events:
+        auto;
+
+}
+
+
+.close-settings{
+
+    position:
+        absolute;
+
+    top:
+        8px;
+
+    right:
+        10px;
+
+    border:
+        0;
+
+    background:
+        none;
+
+    color:
+        #a8864c;
+
+    font-size:
+        20px;
+
+    cursor:
+        pointer;
+
+}
+
+
+.settings-title{
+
+    margin:
+        0 0 16px;
+
+    text-align:
+        center;
+
+    font-size:
+        17px;
+
+    letter-spacing:
+        .18em;
+
+}
+
+
+.setting{
+
+    padding:
+        12px 0;
+
+    border-top:
+        1px solid rgba(150,112,52,.25);
+
+}
+
+
+.setting label{
+
+    display:
+        block;
+
+    margin-bottom:
+        8px;
+
+    font-size:
+        11px;
+
+    letter-spacing:
+        .15em;
+
+    text-transform:
+        uppercase;
+
+    color:
+        #a88950;
+
+}
+
+
+.setting button{
+
+    padding:
+        7px 9px;
+
+    margin:
+        2px 3px 2px 0;
+
+    border:
+        1px solid #60471f;
+
+    background:
+        #140406;
+
+    color:
+        #c8a963;
+
+    border-radius:
+        2px;
+
+    font-family:
+        Georgia,
+        serif;
+
+    cursor:
+        pointer;
+
+}
+
+
+.setting button.selected{
+
+    background:
+        #5b0d13;
+
+    border-color:
+        #bb9147;
+
+    color:
+        #ead18a;
+
+}
+
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+#navigation{
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        max(
+            12px,
+            env(safe-area-inset-bottom)
+        );
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        1100;
+
+    display:
+        none;
+
+    gap:
+        7px;
+
+    opacity:
+        .35;
+
+}
+
+
+.nav-button{
+
+    width:
+        38px;
+
+    height:
+        30px;
+
+    border:
+        1px solid #76562b;
+
+    background:
+        rgba(13,3,4,.9);
+
+    color:
+        #c7a55d;
+
+    font-size:
+        20px;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* ============================================================
+   PAGE COUNTER
+   ============================================================ */
+
+#counter{
+
+    position:
+        fixed;
+
+    left:
+        18px;
+
+    bottom:
+        max(
+            15px,
+            env(safe-area-inset-bottom)
+        );
+
+    z-index:
+        1100;
+
+    color:
+        #9a783c;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        .2em;
+
+    opacity:
+        .45;
+
+}
+
+
+/* ============================================================
+   STATUS
+   ============================================================ */
+
+#status{
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        15px;
+
+    transform:
+        translateX(-50%);
+
+    z-index:
+        1000;
+
+    color:
+        #9a783c;
+
+    font-size:
+        10px;
+
+    letter-spacing:
+        .12em;
+
+    opacity:
+        .65;
+
+    text-align:
+        center;
+
+    max-width:
+        80vw;
+
+}
+
+
+/* ============================================================
+   PORTRAIT MODE
+   ============================================================ */
+
+@media (orientation:portrait){
+
+    #stage::before{
+
+        content:
+            "ROTATE YOUR PHONE";
+
+        position:
+            fixed;
+
+        inset:
+            0;
+
+        z-index:
+            5000;
+
+        display:
+            grid;
+
+        place-items:
+            center;
+
+        background:
+            #030202;
+
+        color:
+            #c6a45e;
+
+        font-size:
+            13px;
+
+        letter-spacing:
+            .28em;
+
+    }
+
+}
+
+
+/* ============================================================
+   SMALL LANDSCAPE PHONES
+   ============================================================ */
+
+@media (
+    max-height:500px
+) and (
+    orientation:landscape
+){
+
+    :root{
+
+        --book-height:
+            88vh;
+
+    }
+
+}
+
+
+/* ============================================================
+   INSTANT MODE
+   ============================================================ */
+
+.instant *{
+
+    transition:
+        none !important;
+
+    animation:
+        none !important;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ============================================================
+     STAGE
+     ============================================================ -->
+
+<div id="stage">
+
+
+    <!-- ========================================================
+         BOOK
+         ======================================================== -->
+
+    <main id="book">
+
+
+        <div class="book-body"></div>
+
+
+        <!-- ====================================================
+             INNER BOOK
+             ==================================================== -->
+
+        <section class="book-inner">
+
+
+            <!-- =================================================
+                 CURRENT SPREAD
+                 ================================================= -->
+
+            <div
+                id="spread"
+            >
+
+
+                <article
+                    class="page"
+                    id="leftPage"
+                ></article>
+
+
+                <article
+                    class="page"
+                    id="rightPage"
+                ></article>
+
+
+                <div
+                    class="spine-shadow"
+                ></div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 TURNING PAGE
+                 ================================================= -->
+
+            <div
+                class="turn-layer"
+                id="turnLayer"
+            >
+
+
+                <div
+                    class="turn-face"
+                    id="turnFront"
+                ></div>
+
+
+                <div
+                    class="turn-face turn-back"
+                    id="turnBack"
+                ></div>
+
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ====================================================
+             PHYSICAL SPINE
+             ==================================================== -->
+
+        <div class="spine">
+
+            <div class="spine-band"></div>
+
+            <div class="spine-band"></div>
+
+            <div class="spine-band"></div>
+
+        </div>
+
+
+        <!-- ====================================================
+             FRONT COVER
+             ==================================================== -->
+
+        <div id="cover">
+
+
+            <div class="cover-face cover-front">
+
+                <img
+                    src="cover.png"
+                    alt="The Lore of The Last Name of God"
+                    draggable="false"
+                >
+
+            </div>
+
+
+            <div class="cover-face cover-back"></div>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- ============================================================
+     SETTINGS
+     ============================================================ -->
+
+<button
+    id="settingsButton"
+    aria-label="Settings"
+>
+    ⚙
+</button>
+
+
+<section id="settingsPanel">
+
+
+    <button
+        class="close-settings"
+        id="closeSettings"
+    >
+        ×
+    </button>
+
+
+    <h2 class="settings-title">
+        BOOK SETTINGS
+    </h2>
+
+
+    <div class="setting">
+
+        <label>
+            Page Navigation
+        </label>
+
+        <button
+            data-nav="swipe"
+            class="selected"
+        >
+            Swipe
+        </button>
+
+        <button
+            data-nav="buttons"
+        >
+            Buttons
+        </button>
+
+    </div>
+
+
+    <div class="setting">
+
+        <label>
+            Page Animation
+        </label>
+
+        <button
+            data-animation="realistic"
+            class="selected"
+        >
+            Realistic
+        </button>
+
+        <button
+            data-animation="smooth"
+        >
+            Smooth
+        </button>
+
+        <button
+            data-animation="instant"
+        >
+            Instant
+        </button>
+
+    </div>
+
+
+    <div class="setting">
+
+        <label>
+            Sound
+        </label>
+
+        <button
+            id="soundButton"
+            class="selected"
+        >
+            Sound ON
+        </button>
+
+    </div>
+
+
+    <div class="setting">
+
+        <label>
+            Display
+        </label>
+
+        <button
+            id="fullscreenButton"
+        >
+            Fullscreen
+        </button>
+
+    </div>
+
+
+</section>
+
+
+<!-- ============================================================
+     OPTIONAL BUTTON NAVIGATION
+     ============================================================ -->
+
+<nav id="navigation">
+
+    <button
+        class="nav-button"
+        id="previousButton"
+    >
+        ‹
+    </button>
+
+    <button
+        class="nav-button"
+        id="nextButton"
+    >
+        ›
+    </button>
+
+</nav>
+
+
+<div id="counter">
+    COVER
+</div>
+
+
+<div id="status">
+    Loading the archive…
+</div>
+
+
+<script>
+
+
+/* ============================================================
+   CONFIGURATION
+   ============================================================ */
+
+const REPOSITORY =
+    "Akshay-s-coder/The-Lore-of-The-Last-Name-of-God-";
+
+
+const BRANCH =
+    "main";
+
+
+const PAGES_API =
+    "https://api.github.com/repos/"
+    + REPOSITORY
+    + "/contents/pages?ref="
+    + BRANCH;
+
+
+/* ============================================================
+   ELEMENTS
+   ============================================================ */
+
+const book =
+    document.getElementById("book");
+
+
+const cover =
+    document.getElementById("cover");
+
+
+const spread =
+    document.getElementById("spread");
+
+
+const leftPage =
+    document.getElementById("leftPage");
+
+
+const rightPage =
+    document.getElementById("rightPage");
+
+
+const turnLayer =
+    document.getElementById("turnLayer");
+
+
+const turnFront =
+    document.getElementById("turnFront");
+
+
+const turnBack =
+    document.getElementById("turnBack");
+
+
+const counter =
+    document.getElementById("counter");
+
+
+const status =
+    document.getElementById("status");
+
+
+const navigation =
+    document.getElementById("navigation");
+
+
+const settingsPanel =
+    document.getElementById("settingsPanel");
+
+
+const settingsButton =
+    document.getElementById("settingsButton");
+
+
+/* ============================================================
+   STATE
+   ============================================================ */
+
+let pages = [];
+
+
+let spreadIndex =
+    0;
+
+
+let bookOpened =
+    false;
+
+
+let flipping =
+    false;
+
+
+let drag =
+    null;
+
+
+let soundEnabled =
+    true;
+
+
+let navigationMode =
+    "swipe";
+
+
+let animationMode =
+    "realistic";
+
+
+let lastPageFetch =
+    0;
+
+
+/* ============================================================
+   PAGE URL
+   ============================================================ */
+
+function pageURL(file){
+
+    /*
+       GitHub's raw URL is used instead of embedding
+       the actual image data into the HTML.
+    */
+
+    return (
+        "https://raw.githubusercontent.com/"
+        + REPOSITORY
+        + "/"
+        + BRANCH
+        + "/pages/"
+        + encodeURIComponent(file)
+    );
+
+}
+
+
+/* ============================================================
+   NUMERIC PAGE SORT
+   ============================================================ */
+
+function sortPages(a,b){
+
+    const na =
+        a.match(/\d+/);
+
+    const nb =
+        b.match(/\d+/);
+
+
+    if(
+        na &&
+        nb &&
+        Number(na[0]) !== Number(nb[0])
+    ){
+
+        return (
+            Number(na[0])
+            -
+            Number(nb[0])
+        );
+
+    }
+
+
+    return a.localeCompare(
+        b,
+        undefined,
+        {
+            numeric:true,
+            sensitivity:"base"
+        }
+    );
+
+}
+
+
+/* ============================================================
+   CREATE IMAGE
+   ============================================================ */
+
+function createImage(src){
+
+    return (
+        '<img src="'
+        + src
+        + '" alt="" draggable="false">'
+    );
+
+}
+
+
+/* ============================================================
+   CLEAR PAGE
+   ============================================================ */
+
+function clearPage(element){
+
+    element.innerHTML =
+        "";
+
+}
+
+
+/* ============================================================
+   RENDER CURRENT SPREAD
+   ============================================================ */
+
+function renderSpread(index){
+
+    clearPage(leftPage);
+
+    clearPage(rightPage);
+
+
+    spread.classList.remove(
+        "single-page"
+    );
+
+
+    const first =
+        index * 2;
+
+
+    const second =
+        first + 1;
+
+
+    /*
+       No pages.
+    */
+
+    if(
+        pages.length === 0
+    ){
+
+        counter.textContent =
+            "COVER";
+
+        status.textContent =
+            "Add PNG files to pages/";
+
+        return;
+
+    }
+
+
+    /*
+       First page.
+    */
+
+    if(
+        pages[first]
+    ){
+
+        leftPage.innerHTML =
+            createImage(
+                pages[first]
+            );
+
+    }
+
+
+    /*
+       Second page exists.
+    */
+
+    if(
+        pages[second]
+    ){
+
+        rightPage.innerHTML =
+            createImage(
+                pages[second]
+            );
+
+    }
+
+
+    /*
+       Only one page remains.
+
+       IMPORTANT:
+       It occupies the COMPLETE book area.
+
+       Therefore there is NO fake blank page.
+    */
+
+    else{
+
+        spread.classList.add(
+            "single-page"
+        );
+
+    }
+
+
+    /*
+       Counter.
+    */
+
+    if(
+        pages[second]
+    ){
+
+        counter.textContent =
+            (first + 1)
+            + " — "
+            + (second + 1);
+
+    }
+
+    else{
+
+        counter.textContent =
+            String(first + 1);
+
+    }
+
+
+    status.textContent =
+        "";
+
+}
+
+
+/* ============================================================
+   LOAD PAGES FROM GITHUB
+   ============================================================ */
+
+async function loadPages(
+    force = false
+){
+
+    const now =
+        Date.now();
+
+
+    /*
+       Don't hammer GitHub's API.
+    */
+
+    if(
+        !force &&
+        now - lastPageFetch < 5000
+    ){
+
+        return;
+
+    }
+
+
+    lastPageFetch =
+        now;
+
+
+    try{
+
+        const response =
+            await fetch(
+                PAGES_API,
+                {
+                    cache:
+                        "no-store"
+                }
+            );
+
+
+        if(
+            !response.ok
+        ){
+
+            throw new Error(
+                "GitHub API error"
+            );
+
+        }
+
+
+        const files =
+            await response.json();
+
+
+        /*
+           ONLY PNG FILES.
+
+           No HTML.
+           No JPG.
+           No placeholders.
+           No folders.
+        */
+
+        pages =
+            files
+                .filter(
+                    file =>
+                        file.type === "file"
+                        &&
+                        /\.png$/i.test(
+                            file.name
+                        )
+                )
+                .sort(
+                    (a,b) =>
+                        sortPages(
+                            a.name,
+                            b.name
+                        )
+                )
+                .map(
+                    file =>
+                        pageURL(
+                            file.name
+                        )
+                );
+
+
+        /*
+           Never allow the book state to point
+           beyond the actual number of pages.
+        */
+
+        const totalSpreads =
+            Math.ceil(
+                pages.length / 2
+            );
+
+
+        if(
+            totalSpreads === 0
+        ){
+
+            spreadIndex =
+                0;
+
+        }
+
+        else if(
+            spreadIndex >= totalSpreads
+        ){
+
+            spreadIndex =
+                totalSpreads - 1;
+
+        }
+
+
+        renderSpread(
+            spreadIndex
+        );
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        status.textContent =
+            "Unable to read pages/ from GitHub.";
+
+    }
+
+}
+
+
+/* ============================================================
+   NUMBER OF SPREADS
+   ============================================================ */
+
+function spreadCount(){
+
+    return Math.ceil(
+        pages.length / 2
+    );
+
+}
+
+
+/* ============================================================
+   CAN FLIP
+   ============================================================ */
+
+function canFlip(direction){
+
+    /*
+       Forward.
+    */
+
+    if(
+        direction > 0
+    ){
+
+        return (
+            spreadIndex + 1
+            <
+            spreadCount()
+        );
+
+    }
+
+
+    /*
+       Backward.
+
+       At spread 0 the next destination
+       is the physical cover.
+    */
+
+    return (
+        spreadIndex > 0
+        ||
+        bookOpened
+    );
+
+}
+
+
+/* ============================================================
+   AUDIO CONTEXT
+   ============================================================ */
+
+function audioContext(){
+
+    const Audio =
+        window.AudioContext
+        ||
+        window.webkitAudioContext;
+
+
+    if(
+        !Audio
+    ){
+
+        return null;
+
+    }
+
+
+    if(
+        !window.__bookAudio
+    ){
+
+        window.__bookAudio =
+            new Audio();
+
+    }
+
+
+    if(
+        window.__bookAudio.state
+        ===
+        "suspended"
+    ){
+
+        window.__bookAudio.resume();
+
+    }
+
+
+    return window.__bookAudio;
+
+}
+
+
+/* ============================================================
+   PAPER SOUND
+   ============================================================ */
+
+function paperSound(){
+
+    if(
+        !soundEnabled
+    ){
+
+        return;
+
+    }
+
+
+    const audio =
+        audioContext();
+
+
+    if(
+        !audio
+    ){
+
+        return;
+
+    }
+
+
+    const duration =
+        animationMode === "instant"
+        ? .06
+        : .28;
+
+
+    const buffer =
+        audio.createBuffer(
+            1,
+            audio.sampleRate * duration,
+            audio.sampleRate
+        );
+
+
+    const data =
+        buffer.getChannelData(0);
+
+
+    for(
+        let i = 0;
+        i < data.length;
+        i++
+    ){
+
+        const progress =
+            i / data.length;
+
+
+        data[i] =
+            (
+                Math.random()
+                * 2
+                - 1
+            )
+            *
+            Math.pow(
+                1 - progress,
+                2.7
+            );
+
+    }
+
+
+    const source =
+        audio.createBufferSource();
+
+
+    const filter =
+        audio.createBiquadFilter();
+
+
+    const gain =
+        audio.createGain();
+
+
+    filter.type =
+        "bandpass";
+
+
+    filter.frequency.value =
+        1100;
+
+
+    filter.Q.value =
+        .7;
+
+
+    gain.gain.value =
+        .07;
+
+
+    source.buffer =
+        buffer;
+
+
+    source.connect(
+        filter
+    );
+
+
+    filter.connect(
+        gain
+    );
+
+
+    gain.connect(
+        audio.destination
+    );
+
+
+    source.start();
+
+
+    source.stop(
+        audio.currentTime
+        +
+        duration
+    );
+
+}
+
+
+/* ============================================================
+   HEAVY COVER SOUND
+   ============================================================ */
+
+function coverSound(){
+
+    if(
+        !soundEnabled
+    ){
+
+        return;
+
+    }
+
+
+    const audio =
+        audioContext();
+
+
+    if(
+        !audio
+    ){
+
+        return;
+
+    }
+
+
+    const now =
+        audio.currentTime;
+
+
+    /*
+       LOW COVER THUMP
+    */
+
+    const bass =
+        audio.createOscillator();
+
+
+    const bassGain =
+        audio.createGain();
+
+
+    bass.type =
+        "triangle";
+
+
+    bass.frequency.setValueAtTime(
+        75,
+        now
+    );
+
+
+    bass.frequency.exponentialRampToValueAtTime(
+        38,
+        now + .55
+    );
+
+
+    bassGain.gain.setValueAtTime(
+        .001,
+        now
+    );
+
+
+    bassGain.gain.exponentialRampToValueAtTime(
+        .22,
+        now + .025
+    );
+
+
+    bassGain.gain.exponentialRampToValueAtTime(
+        .001,
+        now + .65
+    );
+
+
+    bass.connect(
+        bassGain
+    );
+
+
+    bassGain.connect(
+        audio.destination
+    );
+
+
+    bass.start(
+        now
+    );
+
+
+    bass.stop(
+        now + .7
+    );
+
+
+    /*
+       COVER CREAK.
+    */
+
+    const creak =
+        audio.createOscillator();
+
+
+    const creakGain =
+        audio.createGain();
+
+
+    const creakFilter =
+        audio.createBiquadFilter();
+
+
+    creak.type =
+        "sawtooth";
+
+
+    creak.frequency.setValueAtTime(
+        95,
+        now
+    );
+
+
+    creak.frequency.exponentialRampToValueAtTime(
+        170,
+        now + .35
+    );
+
+
+    creak.frequency.exponentialRampToValueAtTime(
+        70,
+        now + .8
+    );
+
+
+    creakFilter.type =
+        "lowpass";
+
+
+    creakFilter.frequency.value =
+        450;
+
+
+    creakGain.gain.setValueAtTime(
+        .001,
+        now
+    );
+
+
+    creakGain.gain.exponentialRampToValueAtTime(
+        .06,
+        now + .06
+    );
+
+
+    creakGain.gain.exponentialRampToValueAtTime(
+        .001,
+        now + .85
+    );
+
+
+    creak.connect(
+        creakFilter
+    );
+
+
+    creakFilter.connect(
+        creakGain
+    );
+
+
+    creakGain.connect(
+        audio.destination
+    );
+
+
+    creak.start(
+        now
+    );
+
+
+    creak.stop(
+        now + .9
+    );
+
+
+    /*
+       Short paper impact.
+    */
+
+    setTimeout(
+        paperSound,
+        100
+    );
+
+}
+
+
+/* ============================================================
+   FULLSCREEN
+   ============================================================ */
+
+async function fullscreen(){
+
+    try{
+
+        if(
+            !document.fullscreenElement
+        ){
+
+            await document.documentElement
+                .requestFullscreen({
+                    navigationUI:
+                        "hide"
+                });
+
+        }
+
+    }
+
+    catch(error){}
+
+
+    try{
+
+        if(
+            screen.orientation
+            &&
+            screen.orientation.lock
+        ){
+
+            await screen.orientation.lock(
+                "landscape"
+            );
+
+        }
+
+    }
+
+    catch(error){}
+
+}
+
+
+/* ============================================================
+   OPEN COVER
+   ============================================================ */
+
+async function openBook(){
+
+    if(
+        bookOpened
+    ){
+
+        return;
+
+    }
+
+
+    /*
+       User gesture allows fullscreen/audio.
+    */
+
+    fullscreen();
+
+    coverSound();
+
+
+    bookOpened =
+        true;
+
+
+    cover.classList.add(
+        "open"
+    );
+
+
+    spreadIndex =
+        0;
+
+
+    await loadPages(
+        true
+    );
+
+
+    renderSpread(
+        0
+    );
+
+}
+
+
+/* ============================================================
+   CLOSE COVER
+   ============================================================ */
+
+function closeCover(){
+
+    if(
+        !bookOpened
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        flipping
+    ){
+
+        return;
+
+    }
+
+
+    flipping =
+        true;
+
+
+    coverSound();
+
+
+    cover.classList.remove(
+        "open"
+    );
+
+
+    setTimeout(
+        () => {
+
+            bookOpened =
+                false;
+
+            flipping =
+                false;
+
+            counter.textContent =
+                "COVER";
+
+        },
+        980
+    );
+
+}
+
+
+/* ============================================================
+   PREPARE TURN
+   ============================================================ */
+
+function prepareTurn(
+    direction
+){
+
+    const currentFirst =
+        spreadIndex * 2;
+
+
+    const destination =
+        spreadIndex
+        +
+        direction;
+
+
+    /*
+       Going forward.
+    */
+
+    if(
+        direction > 0
+    ){
+
+        const turningPage =
+            pages[
+                currentFirst + 1
+            ];
+
+
+        const nextPage =
+            pages[
+                destination * 2
+            ];
+
+
+        /*
+           We cannot turn a nonexistent
+           page.
+        */
+
+        if(
+            !turningPage
+        ){
+
+            return false;
+
+        }
+
+
+        turnFront.innerHTML =
+            createImage(
+                turningPage
+            );
+
+
+        if(
+            nextPage
+        ){
+
+            turnBack.innerHTML =
+                createImage(
+                    nextPage
+                );
+
+        }
+
+        else{
+
+            turnBack.innerHTML =
+                "";
+
+        }
+
+    }
+
+
+    /*
+       Going backward.
+    */
+
+    else{
+
+        const turningPage =
+            pages[
+                currentFirst
+            ];
+
+
+        const nextPage =
+            pages[
+                destination * 2 + 1
+            ]
+            ||
+            pages[
+                destination * 2
+            ];
+
+
+        if(
+            !turningPage
+        ){
+
+            return false;
+
+        }
+
+
+        turnFront.innerHTML =
+            createImage(
+                turningPage
+            );
+
+
+        if(
+            nextPage
+        ){
+
+            turnBack.innerHTML =
+                createImage(
+                    nextPage
+                );
+
+        }
+
+        else{
+
+            turnBack.innerHTML =
+                "";
+
+        }
+
+    }
+
+
+    turnLayer.className =
+        "turn-layer "
+        +
+        (
+            direction > 0
+            ? "forward"
+            : "backward"
+        )
+        +
+        " active";
+
+
+    turnLayer.style.transform =
+        "rotateY(0deg)";
+
+
+    return true;
+
+}
+
+
+/* ============================================================
+   COMPLETE FLIP
+   ============================================================ */
+
+function flip(
+    direction
+){
+
+    if(
+        !bookOpened
+        ||
+        flipping
+    ){
+
+        return;
+
+    }
+
+
+    /*
+       Forward.
+    */
+
+    if(
+        direction > 0
+    ){
+
+        /*
+           Refresh GitHub page list when the user
+           reaches the current end.
+
+           This means adding 007.png can become
+           available without rewriting HTML.
+        */
+
+        loadPages(
+            true
+        );
+
+
+        if(
+            !canFlip(1)
+        ){
+
+            return;
+
+        }
+
+    }
+
+
+    /*
+       Backward from first spread.
+    */
+
+    if(
+        direction < 0
+        &&
+        spreadIndex === 0
+    ){
+
+        closeCover();
+
+        return;
+
+    }
+
+
+    if(
+        !canFlip(direction)
+    ){
+
+        return;
+
+    }
+
+
+    if(
+        !prepareTurn(direction)
+    ){
+
+        return;
+
+    }
+
+
+    flipping =
+        true;
+
+
+    const duration =
+        animationMode === "realistic"
+        ? 850
+        : animationMode === "smooth"
+        ? 600
+        : 1;
+
+
+    turnLayer.style.transition =
+        "transform "
+        +
+        duration
+        +
+        "ms cubic-bezier(.18,.78,.12,1)";
+
+
+    paperSound();
+
+
+    requestAnimationFrame(
+        () => {
+
+            requestAnimationFrame(
+                () => {
+
+                    turnLayer.style.transform =
+                        direction > 0
+                        ? "rotateY(-180deg)"
+                        : "rotateY(180deg)";
+
+                }
+            );
+
+        }
+    );
+
+
+    setTimeout(
+        () => {
+
+            spreadIndex +=
+                direction;
+
+
+            turnLayer.className =
+                "turn-layer";
+
+
+            turnLayer.style.transition =
+                "";
+
+
+            turnLayer.style.transform =
+                "";
+
+
+            renderSpread(
+                spreadIndex
+            );
+
+
+            flipping =
+                false;
+
+        },
+        duration + 40
+    );
+
+}
+
+
+/* ============================================================
+   DRAG START
+   ============================================================ */
+
+book.addEventListener(
+    "pointerdown",
+    event => {
+
+        if(
+            !bookOpened
+            ||
+            flipping
+            ||
+            navigationMode !== "swipe"
+        ){
+
+            return;
+
+        }
+
+
+        /*
+           Make sure we know whether the user is
+           turning from the left or right side.
+        */
+
+        const rect =
+            book.getBoundingClientRect();
+
+
+        const relativeX =
+            event.clientX
+            -
+            rect.left;
+
+
+        const direction =
+            relativeX >
+            rect.width / 2
+            ? 1
+            : -1;
+
+
+        /*
+           At the first spread, left drag closes
+           the physical cover.
+        */
+
+        if(
+            direction < 0
+            &&
+            spreadIndex === 0
+        ){
+
+            drag = {
+
+                start:
+                    event.clientX,
+
+                current:
+                    event.clientX,
+
+                direction:
+                    -1,
+
+                coverDrag:
+                    true,
+
+                active:
+                    false
+
+            };
+
+
+            book.setPointerCapture(
+                event.pointerId
+            );
+
+
+            return;
+
+        }
+
+
+        if(
+            !canFlip(direction)
+        ){
+
+            return;
+
+        }
+
+
+        drag = {
+
+            start:
+                event.clientX,
+
+            current:
+                event.clientX,
+
+            direction:
+                direction,
+
+            coverDrag:
+                false,
+
+            active:
+                false
+
+        };
+
+
+        book.setPointerCapture(
+            event.pointerId
+        );
+
+    }
+);
+
+
+/* ============================================================
+   DRAG MOVE
+   ============================================================ */
+
+book.addEventListener(
+    "pointermove",
+    event => {
+
+        if(
+            !drag
+        ){
+
+            return;
+
+        }
+
+
+        drag.current =
+            event.clientX;
+
+
+        const delta =
+            drag.current
+            -
+            drag.start;
+
+
+        /*
+           COVER DRAG
+        */
+
+        if(
+            drag.coverDrag
+        ){
+
+            const progress =
+                Math.max(
+                    0,
+                    Math.min(
+                        1,
+                        delta /
+                        book.clientWidth
+                    )
+                );
+
+
+            /*
+               Cover starts open at -168deg.
+               Dragging right moves it toward 0deg.
+            */
+
+            const angle =
+                -168
+                +
+                progress * 168;
+
+
+            cover.style.transition =
+                "none";
+
+
+            cover.style.transform =
+                "rotateY("
+                +
+                angle
+                +
+                "deg)";
+
+
+            drag.active =
+                true;
+
+
+            return;
+
+        }
+
+
+        /*
+           NORMAL PAGE DRAG
+        */
+
+        const movement =
+            drag.direction > 0
+            ? -delta
+            : delta;
+
+
+        const width =
+            book.clientWidth / 2;
+
+
+        const progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    movement / width
+                )
+            );
+
+
+        if(
+            !drag.active
+            &&
+            Math.abs(delta) > 5
+        ){
+
+            if(
+                !prepareTurn(
+                    drag.direction
+                )
+            ){
+
+                drag =
+                    null;
+
+                return;
+
+            }
+
+
+            drag.active =
+                true;
+
+        }
+
+
+        if(
+            drag.active
+        ){
+
+            turnLayer.style.transition =
+                "none";
+
+
+            const angle =
+                drag.direction > 0
+                ? -180 * progress
+                : 180 * progress;
+
+
+            turnLayer.style.transform =
+                "rotateY("
+                +
+                angle
+                +
+                "deg)";
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   DRAG END
+   ============================================================ */
+
+function finishDrag(){
+
+    if(
+        !drag
+    ){
+
+        return;
+
+    }
+
+
+    const current =
+        drag;
+
+
+    drag =
+        null;
+
+
+    /*
+       COVER.
+    */
+
+    if(
+        current.coverDrag
+    ){
+
+        const delta =
+            current.current
+            -
+            current.start;
+
+
+        const progress =
+            Math.max(
+                0,
+                Math.min(
+                    1,
+                    delta /
+                    book.clientWidth
+                )
+            );
+
+
+        /*
+           Enough movement = close cover.
+        */
+
+        if(
+            progress > .22
+        ){
+
+            cover.style.transition =
+                "transform .75s cubic-bezier(.18,.78,.12,1)";
+
+
+            cover.style.transform =
+                "rotateY(0deg)";
+
+
+            coverSound();
+
+
+            setTimeout(
+                () => {
+
+                    bookOpened =
+                        false;
+
+                    cover.style.transition =
+                        "";
+
+                    cover.classList.remove(
+                        "open"
+                    );
+
+                    cover.style.transform =
+                        "";
+
+                    counter.textContent =
+                        "COVER";
+
+                },
+                770
+            );
+
+        }
+
+        /*
+           Otherwise return to open.
+        */
+
+        else{
+
+            cover.style.transition =
+                "transform .38s cubic-bezier(.18,.78,.12,1)";
+
+
+            cover.style.transform =
+                "rotateY(-168deg)";
+
+
+            setTimeout(
+                () => {
+
+                    cover.style.transition =
+                        "";
+
+                },
+                400
+            );
+
+        }
+
+
+        return;
+
+    }
+
+
+    /*
+       NORMAL PAGE.
+    */
+
+    if(
+        !current.active
+    ){
+
+        turnLayer.className =
+            "turn-layer";
+
+
+        turnLayer.style.transform =
+            "";
+
+
+        return;
+
+    }
+
+
+    const delta =
+        current.current
+        -
+        current.start;
+
+
+    const movement =
+        current.direction > 0
+        ? -delta
+        : delta;
+
+
+    const progress =
+        Math.max(
+            0,
+            Math.min(
+                1,
+                movement /
+                (book.clientWidth / 2)
+            )
+        );
+
+
+    /*
+       Enough drag = complete.
+    */
+
+    if(
+        progress > .28
+    ){
+
+        flipping =
+            true;
+
+
+        const duration =
+            430;
+
+
+        turnLayer.style.transition =
+            "transform "
+            +
+            duration
+            +
+            "ms cubic-bezier(.18,.78,.12,1)";
+
+
+        turnLayer.style.transform =
+            current.direction > 0
+            ? "rotateY(-180deg)"
+            : "rotateY(180deg)";
+
+
+        paperSound();
+
+
+        setTimeout(
+            () => {
+
+                spreadIndex +=
+                    current.direction;
+
+
+                turnLayer.className =
+                    "turn-layer";
+
+
+                turnLayer.style.transition =
+                    "";
+
+
+                turnLayer.style.transform =
+                    "";
+
+
+                renderSpread(
+                    spreadIndex
+                );
+
+
+                flipping =
+                    false;
+
+            },
+            duration + 30
+        );
+
+    }
+
+    /*
+       Not enough drag = return smoothly.
+    */
+
+    else{
+
+        turnLayer.style.transition =
+            "transform .36s cubic-bezier(.18,.78,.12,1)";
+
+
+        turnLayer.style.transform =
+            "rotateY(0deg)";
+
+
+        setTimeout(
+            () => {
+
+                turnLayer.className =
+                    "turn-layer";
+
+
+                turnLayer.style.transition =
+                    "";
+
+
+                turnLayer.style.transform =
+                    "";
+
+            },
+            380
+        );
+
+    }
+
+}
+
+
+book.addEventListener(
+    "pointerup",
+    finishDrag
+);
+
+
+book.addEventListener(
+    "pointercancel",
+    finishDrag
+);
+
+
+/* ============================================================
+   COVER CLICK
+   ============================================================ */
+
+cover.addEventListener(
+    "click",
+    event => {
+
+        /*
+           Don't interfere with an active drag.
+        */
+
+        if(
+            drag
+        ){
+
+            return;
+
+        }
+
+
+        openBook();
+
+    }
+);
+
+
+/* ============================================================
+   NEXT BUTTON
+   ============================================================ */
+
+document
+    .getElementById("nextButton")
+    .addEventListener(
+        "click",
+        async () => {
+
+            if(
+                !bookOpened
+            ){
+
+                await openBook();
+
+                return;
+
+            }
+
+
+            await loadPages(
+                true
+            );
+
+
+            flip(1);
+
+        }
+    );
+
+
+/* ============================================================
+   PREVIOUS BUTTON
+   ============================================================ */
+
+document
+    .getElementById("previousButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            flip(-1);
+
+        }
+    );
+
+
+/* ============================================================
+   KEYBOARD
+   ============================================================ */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key ===
+            "ArrowRight"
+        ){
+
+            flip(1);
+
+        }
+
+
+        if(
+            event.key ===
+            "ArrowLeft"
+        ){
+
+            flip(-1);
+
+        }
+
+
+        if(
+            event.key ===
+            "Escape"
+        ){
+
+            settingsPanel.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   SETTINGS BUTTON
+   ============================================================ */
+
+settingsButton.addEventListener(
+    "click",
+    () => {
+
+        settingsPanel.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+/* ============================================================
+   CLOSE SETTINGS
+   ============================================================ */
+
+document
+    .getElementById("closeSettings")
+    .addEventListener(
+        "click",
+        () => {
+
+            settingsPanel.classList.remove(
+                "show"
+            );
+
+        }
+    );
+
+
+/* ============================================================
+   NAVIGATION MODE
+   ============================================================ */
+
+document
+    .querySelectorAll("[data-nav]")
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    navigationMode =
+                        button.dataset.nav;
+
+
+                    document
+                        .querySelectorAll(
+                            "[data-nav]"
+                        )
+                        .forEach(
+                            item =>
+                                item.classList.remove(
+                                    "selected"
+                                )
+                        );
+
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+
+                    navigation.style.display =
+                        navigationMode === "buttons"
+                        ? "flex"
+                        : "none";
+
+                }
+            );
+
+        }
+    );
+
+
+/* ============================================================
+   ANIMATION MODE
+   ============================================================ */
+
+document
+    .querySelectorAll(
+        "[data-animation]"
+    )
+    .forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    animationMode =
+                        button.dataset.animation;
+
+
+                    document
+                        .querySelectorAll(
+                            "[data-animation]"
+                        )
+                        .forEach(
+                            item =>
+                                item.classList.remove(
+                                    "selected"
+                                )
+                        );
+
+
+                    button.classList.add(
+                        "selected"
+                    );
+
+
+                    document.body.classList.toggle(
+                        "instant",
+                        animationMode ===
+                        "instant"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* ============================================================
+   SOUND TOGGLE
+   ============================================================ */
+
+document
+    .getElementById("soundButton")
+    .addEventListener(
+        "click",
+        event => {
+
+            soundEnabled =
+                !soundEnabled;
+
+
+            event.target.textContent =
+                soundEnabled
+                ? "Sound ON"
+                : "Sound OFF";
+
+
+            event.target.classList.toggle(
+                "selected",
+                soundEnabled
+            );
+
+        }
+    );
+
+
+/* ============================================================
+   FULLSCREEN BUTTON
+   ============================================================ */
+
+document
+    .getElementById(
+        "fullscreenButton"
+    )
+    .addEventListener(
+        "click",
+        fullscreen
+    );
+
+
+/* ============================================================
+   INITIAL LOAD
+   ============================================================ */
+
+loadPages(
+    true
+);
+
+
+/* ============================================================
+   AUTOMATIC ARCHIVE REFRESH
+   ============================================================
+
+   Every 30 seconds the program checks GitHub.
+
+   So if you add:
+
+       pages/007.png
+
+   while the book is already open, the archive can
+   discover it without changing index.html.
+
+   ============================================================ */
+
+setInterval(
+    () => {
+
+        loadPages(
+            true
+        );
+
+    },
+    30000
+);
+
+
+</script>
+
+</body>
+
+</html>
