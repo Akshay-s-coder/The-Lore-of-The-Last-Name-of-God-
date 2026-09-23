@@ -1,0 +1,2916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#030407">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<title>The Last Name of God — The Lore</title>
+
+<style>
+:root{
+  --bg:#020306;
+  --gold:#d7b46a;
+  --gold-soft:#9d7d3d;
+  --text:#eee9dd;
+  --muted:#9c998f;
+  --panel:rgba(12,13,17,.82);
+  --line:rgba(215,180,106,.22);
+  --shadow:0 30px 90px rgba(0,0,0,.75);
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Georgia,"Times New Roman",serif;
+}
+
+body{
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+button{
+  font:inherit;
+  color:inherit;
+}
+
+#app{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(75,57,27,.08),transparent 45%),
+    #020306;
+}
+
+/* =========================================================
+   PRIMORDIAL BACKGROUND
+   ========================================================= */
+
+#primordial{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  opacity:1;
+  transition:opacity .8s ease;
+}
+
+#vignette{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 34%,
+      rgba(0,0,0,.34) 67%,
+      rgba(0,0,0,.88) 100%
+    );
+  z-index:2;
+}
+
+#grain{
+  position:absolute;
+  inset:-50%;
+  z-index:3;
+  pointer-events:none;
+  opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+  animation:grainMove .18s steps(2) infinite;
+}
+
+@keyframes grainMove{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(2%,-1%)}
+  50%{transform:translate(-1%,2%)}
+  75%{transform:translate(1%,1%)}
+  100%{transform:translate(-2%,-1%)}
+}
+
+/* =========================================================
+   BOOK STAGE
+   ========================================================= */
+
+#stage{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:2200px;
+  overflow:hidden;
+}
+
+#bookWrap{
+  position:relative;
+  width:min(92vw,calc(92vh * 1.7778));
+  aspect-ratio:16/9;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 35px 45px rgba(0,0,0,.72));
+}
+
+#book{
+  position:absolute;
+  inset:0;
+  transform-style:preserve-3d;
+  touch-action:none;
+  will-change:transform;
+}
+
+#book.open{
+  cursor:grab;
+}
+
+#book.dragging{
+  cursor:grabbing;
+}
+
+/* =========================================================
+   COVER
+   ========================================================= */
+
+#cover{
+  position:absolute;
+  inset:0;
+  z-index:50;
+  overflow:hidden;
+  border-radius:4px;
+  background:#050505;
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  box-shadow:
+    inset 0 0 0 1px rgba(215,180,106,.18),
+    0 10px 50px rgba(0,0,0,.55);
+  transition:
+    transform 1.05s cubic-bezier(.2,.75,.2,1),
+    box-shadow 1s ease;
+  cursor:pointer;
+  will-change:transform;
+}
+
+#cover.open{
+  transform:rotateY(-168deg);
+  box-shadow:
+    inset 0 0 0 1px rgba(215,180,106,.08),
+    0 0 0 rgba(0,0,0,0);
+  pointer-events:none;
+}
+
+#coverImage{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+
+#coverFallback{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  padding:8%;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 38%,rgba(130,100,44,.18),transparent 30%),
+    linear-gradient(135deg,#090806,#020203 60%,#080604);
+}
+
+.coverKicker{
+  font-size:clamp(9px,1vw,15px);
+  letter-spacing:.42em;
+  text-transform:uppercase;
+  color:#a9905b;
+  margin-bottom:3%;
+}
+
+.coverTitle{
+  font-size:clamp(25px,4.2vw,70px);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  line-height:1.05;
+  text-shadow:0 4px 30px #000;
+}
+
+.coverSub{
+  margin-top:2%;
+  color:#aaa18d;
+  letter-spacing:.25em;
+  font-size:clamp(8px,.85vw,13px);
+  text-transform:uppercase;
+}
+
+.coverSpine{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  width:3px;
+  background:linear-gradient(
+    to right,
+    rgba(0,0,0,.9),
+    rgba(215,180,106,.22),
+    rgba(0,0,0,.8)
+  );
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#111;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  transform-style:preserve-3d;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.035),
+    0 10px 35px rgba(0,0,0,.38);
+}
+
+.page img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  pointer-events:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+
+#currentPage{
+  z-index:5;
+}
+
+#nextPage{
+  z-index:4;
+}
+
+#turnPage{
+  z-index:20;
+  display:none;
+  transform-origin:left center;
+  backface-visibility:hidden;
+}
+
+#turnPage img{
+  backface-visibility:hidden;
+}
+
+#turnPage::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.45),
+      transparent 16%,
+      transparent 80%,
+      rgba(0,0,0,.08)
+    );
+  mix-blend-mode:multiply;
+}
+
+#pageShadow{
+  position:absolute;
+  inset:0;
+  z-index:19;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.65),
+    transparent 30%,
+    transparent
+  );
+  transition:opacity .1s linear;
+}
+
+/* =========================================================
+   HUD
+   ========================================================= */
+
+#hud{
+  position:fixed;
+  left:50%;
+  bottom:max(16px,env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  z-index:100;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .45s ease;
+}
+
+#hud.visible{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.hudBtn{
+  width:42px;
+  height:42px;
+  border:1px solid rgba(215,180,106,.22);
+  border-radius:50%;
+  background:rgba(5,6,8,.65);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  display:grid;
+  place-items:center;
+  color:#d8c49b;
+  cursor:pointer;
+  transition:
+    transform .2s ease,
+    background .2s ease,
+    border-color .2s ease;
+}
+
+.hudBtn:hover{
+  transform:translateY(-2px);
+  background:rgba(30,28,23,.8);
+  border-color:rgba(215,180,106,.5);
+}
+
+.hudBtn:active{
+  transform:scale(.93);
+}
+
+.hudBtn svg{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+#counter{
+  min-width:115px;
+  text-align:center;
+  color:#aaa18e;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:.24em;
+  white-space:nowrap;
+}
+
+/* =========================================================
+   OPEN HINT
+   ========================================================= */
+
+#hint{
+  position:fixed;
+  left:50%;
+  bottom:max(80px,calc(env(safe-area-inset-bottom) + 65px));
+  transform:translateX(-50%);
+  z-index:80;
+  color:rgba(220,208,180,.58);
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  text-align:center;
+  pointer-events:none;
+  transition:opacity .7s ease;
+}
+
+#hint.hidden{
+  opacity:0;
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+#settingsButton{
+  position:fixed;
+  top:max(14px,env(safe-area-inset-top));
+  right:16px;
+  z-index:150;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(215,180,106,.18);
+  border-radius:50%;
+  background:rgba(4,5,7,.55);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  color:#b8a67e;
+  transition:.25s ease;
+}
+
+#settingsButton:hover{
+  background:rgba(30,28,23,.8);
+  border-color:rgba(215,180,106,.45);
+}
+
+#settingsButton:active{
+  transform:scale(.9);
+}
+
+#settingsButton svg{
+  width:17px;
+  height:17px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+#settingsPanel{
+  position:fixed;
+  top:62px;
+  right:16px;
+  width:min(300px,calc(100vw - 32px));
+  z-index:149;
+  padding:18px;
+  border:1px solid rgba(215,180,106,.18);
+  border-radius:14px;
+  background:rgba(7,8,11,.9);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:0 25px 70px rgba(0,0,0,.6);
+  transform:translateY(-8px) scale(.97);
+  opacity:0;
+  pointer-events:none;
+  transition:.25s var(--ease);
+}
+
+#settingsPanel.open{
+  transform:none;
+  opacity:1;
+  pointer-events:auto;
+}
+
+.settingsTitle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+  color:#d5c49e;
+  font-size:12px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.settingsClose{
+  border:0;
+  background:none;
+  color:#8d897d;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.setting{
+  margin:15px 0;
+}
+
+.settingLabel{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:8px;
+  color:#a8a39a;
+  font-family:Arial,sans-serif;
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.settingValue{
+  color:#d0bd91;
+}
+
+.options{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+
+.option{
+  min-height:32px;
+  border:1px solid rgba(215,180,106,.12);
+  border-radius:7px;
+  background:rgba(255,255,255,.025);
+  color:#88857e;
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:.08em;
+  cursor:pointer;
+  transition:.2s ease;
+}
+
+.option.active{
+  color:#d4c096;
+  border-color:rgba(215,180,106,.38);
+  background:rgba(215,180,106,.08);
+}
+
+.settingToggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.toggle{
+  width:42px;
+  height:23px;
+  border-radius:20px;
+  border:1px solid rgba(215,180,106,.18);
+  background:#17181c;
+  position:relative;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+.toggle::after{
+  content:"";
+  position:absolute;
+  width:17px;
+  height:17px;
+  top:2px;
+  left:3px;
+  border-radius:50%;
+  background:#77736a;
+  transition:.25s ease;
+}
+
+.toggle.active{
+  background:rgba(215,180,106,.18);
+  border-color:rgba(215,180,106,.42);
+}
+
+.toggle.active::after{
+  left:20px;
+  background:#d6bd88;
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+#loading{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  display:grid;
+  place-items:center;
+  background:#020306;
+  transition:opacity .7s ease,visibility .7s ease;
+}
+
+#loading.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader{
+  text-align:center;
+}
+
+.loaderMark{
+  width:35px;
+  height:35px;
+  margin:auto;
+  border:1px solid rgba(215,180,106,.15);
+  border-top-color:#d5b36a;
+  border-radius:50%;
+  animation:spin 1.2s linear infinite;
+}
+
+.loaderText{
+  margin-top:16px;
+  font-family:Arial,sans-serif;
+  font-size:9px;
+  letter-spacing:.3em;
+  color:#77746c;
+  text-transform:uppercase;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media(max-width:700px){
+  #bookWrap{
+    width:94vw;
+  }
+
+  #settingsPanel{
+    top:58px;
+  }
+
+  .hudBtn{
+    width:39px;
+    height:39px;
+  }
+
+  #counter{
+    min-width:105px;
+    font-size:9px;
+  }
+}
+
+@media(max-aspect-ratio:4/5){
+  #bookWrap{
+    width:94vw;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+  <canvas id="primordial"></canvas>
+  <div id="vignette"></div>
+  <div id="grain"></div>
+
+  <button id="settingsButton" aria-label="Settings">
+    <svg viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3"></circle>
+      <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2.5v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8.1 15a1.7 1.7 0 0 0-1.5-1H6.4v-2.5h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2H15v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14h-.2a1.7 1.7 0 0 0-1.5 1z"></path>
+    </svg>
+  </button>
+
+  <div id="settingsPanel">
+
+    <div class="settingsTitle">
+      <span>Experience</span>
+      <button class="settingsClose" id="settingsClose">×</button>
+    </div>
+
+    <div class="setting">
+      <div class="settingLabel">
+        <span>Touch sensitivity</span>
+        <span class="settingValue" id="sensitivityValue">Normal</span>
+      </div>
+
+      <div class="options">
+        <button class="option" data-setting="sensitivity" data-value="low">Low</button>
+        <button class="option active" data-setting="sensitivity" data-value="normal">Normal</button>
+        <button class="option" data-setting="sensitivity" data-value="high">High</button>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="settingLabel">
+        <span>Atmosphere</span>
+        <span class="settingValue" id="atmosphereValue">Primordial</span>
+      </div>
+
+      <div class="options">
+        <button class="option active" data-setting="atmosphere" data-value="primordial">Primordial</button>
+        <button class="option" data-setting="atmosphere" data-value="subtle">Subtle</button>
+        <button class="option" data-setting="atmosphere" data-value="off">Off</button>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="settingLabel">
+        <span>Navigation</span>
+        <span class="settingValue" id="navigationValue">Swipe</span>
+      </div>
+
+      <div class="options">
+        <button class="option active" data-setting="navigation" data-value="swipe">Swipe</button>
+        <button class="option" data-setting="navigation" data-value="buttons">Buttons</button>
+        <button class="option" data-setting="navigation" data-value="both">Both</button>
+      </div>
+    </div>
+
+    <div class="setting">
+      <div class="settingLabel">
+        <span>Page turn</span>
+        <span class="settingValue" id="turnValue">Realistic</span>
+      </div>
+
+      <div class="options">
+        <button class="option active" data-setting="turn" data-value="realistic">Realistic</button>
+        <button class="option" data-setting="turn" data-value="smooth">Smooth</button>
+        <button class="option" data-setting="turn" data-value="instant">Instant</button>
+      </div>
+    </div>
+
+    <div class="setting settingToggle">
+      <div class="settingLabel" style="margin:0">
+        <span>Page sound</span>
+      </div>
+      <button class="toggle active" id="soundToggle" aria-label="Toggle sound"></button>
+    </div>
+
+    <div class="setting settingToggle">
+      <div class="settingLabel" style="margin:0">
+        <span>Fullscreen</span>
+      </div>
+      <button class="toggle" id="fullscreenToggle" aria-label="Fullscreen"></button>
+    </div>
+
+  </div>
+
+  <main id="stage">
+
+    <div id="bookWrap">
+
+      <div id="book">
+
+        <div id="currentPage" class="page">
+          <img alt="Lore page">
+        </div>
+
+        <div id="nextPage" class="page">
+          <img alt="Next lore page">
+        </div>
+
+        <div id="pageShadow"></div>
+
+        <div id="turnPage" class="page">
+          <img alt="Turning lore page">
+        </div>
+
+        <div id="cover">
+
+          <img
+            id="coverImage"
+            src="https://raw.githubusercontent.com/Akshay-s-coder/The-Lore-of-The-Last-Name-of-God-/main/cover.png"
+            alt="The Lore of The Last Name of God"
+            onerror="this.style.display='none';document.getElementById('coverFallback').style.display='flex';"
+          >
+
+          <div id="coverFallback" style="display:none">
+            <div class="coverKicker">The Lore</div>
+            <div class="coverTitle">The Last Name<br>of God</div>
+            <div class="coverSub">A Record of What Came Before</div>
+          </div>
+
+          <div class="coverSpine"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <div id="hint">Tap cover to enter · Swipe to turn</div>
+
+  <div id="hud">
+
+    <button class="hudBtn" id="prevBtn" aria-label="Previous page">
+      <svg viewBox="0 0 24 24">
+        <path d="M15 18l-6-6 6-6"></path>
+      </svg>
+    </button>
+
+    <div id="counter">PAGE 001</div>
+
+    <button class="hudBtn" id="nextBtn" aria-label="Next page">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 18l6-6-6-6"></path>
+      </svg>
+    </button>
+
+  </div>
+
+  <div id="loading">
+    <div class="loader">
+      <div class="loaderMark"></div>
+      <div class="loaderText">Opening the archive</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   CONFIGURATION
+   ========================================================= */
+
+const REPO =
+  "Akshay-s-coder/The-Lore-of-The-Last-Name-of-God-";
+
+const BRANCH = "main";
+
+const API =
+  `https://api.github.com/repos/${REPO}/contents/pages?ref=${BRANCH}`;
+
+const RAW =
+  `https://raw.githubusercontent.com/${REPO}/${BRANCH}/pages/`;
+
+const COVER_URL =
+  `https://raw.githubusercontent.com/${REPO}/${BRANCH}/cover.png`;
+
+/*
+  IMPORTANT:
+
+  Only files named:
+
+    001.png
+    002.png
+    003.png
+    ...
+    999.png
+
+  are treated as lore pages.
+
+  The number controls the page order.
+*/
+
+/* =========================================================
+   DOM
+   ========================================================= */
+
+const $ = id => document.getElementById(id);
+
+const book = $("book");
+const bookWrap = $("bookWrap");
+
+const cover = $("cover");
+
+const currentPage = $("currentPage");
+const nextPage = $("nextPage");
+const turnPage = $("turnPage");
+const pageShadow = $("pageShadow");
+
+const currentImg = currentPage.querySelector("img");
+const nextImg = nextPage.querySelector("img");
+const turnImg = turnPage.querySelector("img");
+
+const counter = $("counter");
+
+const hud = $("hud");
+const hint = $("hint");
+
+const settingsButton = $("settingsButton");
+const settingsPanel = $("settingsPanel");
+const settingsClose = $("settingsClose");
+
+const soundToggle = $("soundToggle");
+const fullscreenToggle = $("fullscreenToggle");
+
+const primordial = $("primordial");
+const ctx = primordial.getContext("2d");
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+const state = {
+
+  pages: [],
+
+  index: 0,
+
+  opened: false,
+
+  busy: false,
+
+  turn: null,
+
+  drag: null,
+
+  suppressClickUntil: 0,
+
+  settings: {
+
+    sensitivity: "normal",
+
+    atmosphere: "primordial",
+
+    navigation: "swipe",
+
+    turn: "realistic",
+
+    sound: true
+
+  }
+
+};
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+const sensitivityConfig = {
+
+  low: {
+    distance: .18,
+    velocity: .58,
+    dragStart: 12
+  },
+
+  normal: {
+    distance: .11,
+    velocity: .34,
+    dragStart: 7
+  },
+
+  high: {
+    distance: .075,
+    velocity: .25,
+    dragStart: 4
+  }
+
+};
+
+const labels = {
+
+  sensitivity: {
+    low: "Low",
+    normal: "Normal",
+    high: "High"
+  },
+
+  atmosphere: {
+    primordial: "Primordial",
+    subtle: "Subtle",
+    off: "Off"
+  },
+
+  navigation: {
+    swipe: "Swipe",
+    buttons: "Buttons",
+    both: "Both"
+  },
+
+  turn: {
+    realistic: "Realistic",
+    smooth: "Smooth",
+    instant: "Instant"
+  }
+
+};
+
+/* =========================================================
+   LOCAL STORAGE
+   ========================================================= */
+
+function saveSettings(){
+
+  try{
+
+    localStorage.setItem(
+      "lastNameOfGodSettings",
+      JSON.stringify(state.settings)
+    );
+
+  }catch(e){}
+
+}
+
+function loadSettings(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem("lastNameOfGodSettings")
+      );
+
+    if(saved){
+
+      state.settings = {
+        ...state.settings,
+        ...saved
+      };
+
+    }
+
+  }catch(e){}
+
+}
+
+function applySettings(){
+
+  document
+    .querySelectorAll(".option")
+    .forEach(button => {
+
+      const setting =
+        button.dataset.setting;
+
+      const value =
+        button.dataset.value;
+
+      button.classList.toggle(
+        "active",
+        state.settings[setting] === value
+      );
+
+    });
+
+  $("sensitivityValue").textContent =
+    labels.sensitivity[state.settings.sensitivity];
+
+  $("atmosphereValue").textContent =
+    labels.atmosphere[state.settings.atmosphere];
+
+  $("navigationValue").textContent =
+    labels.navigation[state.settings.navigation];
+
+  $("turnValue").textContent =
+    labels.turn[state.settings.turn];
+
+  soundToggle.classList.toggle(
+    "active",
+    state.settings.sound
+  );
+
+  applyAtmosphere();
+
+  updateNavigationVisibility();
+
+  saveSettings();
+
+}
+
+/* =========================================================
+   SETTINGS EVENTS
+   ========================================================= */
+
+document
+  .querySelectorAll(".option")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      const setting =
+        button.dataset.setting;
+
+      const value =
+        button.dataset.value;
+
+      state.settings[setting] = value;
+
+      applySettings();
+
+    });
+
+  });
+
+settingsButton.addEventListener("click", event => {
+
+  event.stopPropagation();
+
+  settingsPanel.classList.toggle("open");
+
+});
+
+settingsClose.addEventListener("click", () => {
+
+  settingsPanel.classList.remove("open");
+
+});
+
+soundToggle.addEventListener("click", () => {
+
+  state.settings.sound =
+    !state.settings.sound;
+
+  applySettings();
+
+});
+
+fullscreenToggle.addEventListener("click", async () => {
+
+  try{
+
+    if(!document.fullscreenElement){
+
+      await document.documentElement.requestFullscreen();
+
+    }else{
+
+      await document.exitFullscreen();
+
+    }
+
+  }catch(e){}
+
+});
+
+document.addEventListener("fullscreenchange", () => {
+
+  fullscreenToggle.classList.toggle(
+    "active",
+    !!document.fullscreenElement
+  );
+
+});
+
+/* Close settings if clicking outside */
+
+document.addEventListener("pointerdown", event => {
+
+  if(
+    settingsPanel.classList.contains("open") &&
+    !settingsPanel.contains(event.target) &&
+    !settingsButton.contains(event.target)
+  ){
+
+    settingsPanel.classList.remove("open");
+
+  }
+
+});
+
+/* =========================================================
+   ATMOSPHERE
+   ========================================================= */
+
+function applyAtmosphere(){
+
+  const mode =
+    state.settings.atmosphere;
+
+  if(mode === "off"){
+
+    primordial.style.opacity = "0";
+
+    $("grain").style.opacity = ".015";
+
+  }else if(mode === "subtle"){
+
+    primordial.style.opacity = ".38";
+
+    $("grain").style.opacity = ".025";
+
+  }else{
+
+    primordial.style.opacity = "1";
+
+    $("grain").style.opacity = ".045";
+
+  }
+
+}
+
+/* =========================================================
+   AUDIO ENGINE
+   ========================================================= */
+
+let audioContext = null;
+
+function getAudio(){
+
+  if(!state.settings.sound) return null;
+
+  try{
+
+    if(!audioContext){
+
+      audioContext =
+        new (
+          window.AudioContext ||
+          window.webkitAudioContext
+        )();
+
+    }
+
+    if(audioContext.state === "suspended"){
+
+      audioContext.resume();
+
+    }
+
+    return audioContext;
+
+  }catch(e){
+
+    return null;
+
+  }
+
+}
+
+function playPaperSound(direction = 1){
+
+  if(!state.settings.sound) return;
+
+  const ac = getAudio();
+
+  if(!ac) return;
+
+  const duration = .34;
+
+  const buffer =
+    ac.createBuffer(
+      1,
+      Math.floor(ac.sampleRate * duration),
+      ac.sampleRate
+    );
+
+  const data =
+    buffer.getChannelData(0);
+
+  for(let i = 0; i < data.length; i++){
+
+    const t = i / data.length;
+
+    const envelope =
+      Math.sin(Math.PI * t) *
+      Math.pow(1 - t, .35);
+
+    data[i] =
+      (
+        Math.random() * 2 - 1
+      ) *
+      envelope;
+
+  }
+
+  const source =
+    ac.createBufferSource();
+
+  source.buffer = buffer;
+
+  const filter =
+    ac.createBiquadFilter();
+
+  filter.type = "bandpass";
+
+  filter.frequency.value =
+    direction > 0 ? 1500 : 1100;
+
+  filter.Q.value = .65;
+
+  const gain =
+    ac.createGain();
+
+  gain.gain.value = .045;
+
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(ac.destination);
+
+  source.start();
+
+  source.stop(
+    ac.currentTime + duration
+  );
+
+}
+
+function playCoverSound(opening = true){
+
+  if(!state.settings.sound) return;
+
+  const ac = getAudio();
+
+  if(!ac) return;
+
+  const osc =
+    ac.createOscillator();
+
+  const gain =
+    ac.createGain();
+
+  osc.type = "triangle";
+
+  osc.frequency.setValueAtTime(
+    opening ? 95 : 70,
+    ac.currentTime
+  );
+
+  osc.frequency.exponentialRampToValueAtTime(
+    opening ? 48 : 42,
+    ac.currentTime + .6
+  );
+
+  gain.gain.setValueAtTime(
+    .0001,
+    ac.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .045,
+    ac.currentTime + .05
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .0001,
+    ac.currentTime + .65
+  );
+
+  osc.connect(gain);
+  gain.connect(ac.destination);
+
+  osc.start();
+
+  osc.stop(ac.currentTime + .7);
+
+}
+
+/* =========================================================
+   PAGE LOADING
+   ========================================================= */
+
+function numericSort(a,b){
+
+  return a.pageNumber - b.pageNumber;
+
+}
+
+function makePageURL(name, sha){
+
+  const encoded =
+    encodeURIComponent(name);
+
+  const version =
+    encodeURIComponent(
+      sha || name
+    );
+
+  return `${RAW}${encoded}?v=${version}`;
+
+}
+
+async function loadPages(){
+
+  try{
+
+    const response =
+      await fetch(API, {
+        cache: "no-store"
+      });
+
+    if(!response.ok){
+
+      throw new Error(
+        `GitHub returned ${response.status}`
+      );
+
+    }
+
+    const files =
+      await response.json();
+
+    const pages =
+      files
+
+        .filter(item =>
+          item.type === "file" &&
+          /^\d{3}\.png$/i.test(item.name)
+        )
+
+        .map(item => ({
+
+          name: item.name,
+
+          pageNumber:
+            Number(
+              item.name.slice(0,3)
+            ),
+
+          sha: item.sha,
+
+          url:
+            makePageURL(
+              item.name,
+              item.sha
+            )
+
+        }))
+
+        .sort(numericSort);
+
+    if(!pages.length){
+
+      throw new Error(
+        "No numbered PNG pages found."
+      );
+
+    }
+
+    state.pages = pages;
+
+    if(state.index >= pages.length){
+
+      state.index =
+        pages.length - 1;
+
+    }
+
+    render();
+
+    preloadAround();
+
+  }catch(error){
+
+    console.error(error);
+
+    counter.textContent =
+      "PAGES UNAVAILABLE";
+
+  }
+
+}
+
+/* =========================================================
+   IMAGE PRELOADING
+   ========================================================= */
+
+const imageCache =
+  new Map();
+
+function preloadPage(page){
+
+  if(!page) return;
+
+  if(imageCache.has(page.url)) return;
+
+  const image =
+    new Image();
+
+  image.decoding = "async";
+
+  image.src = page.url;
+
+  imageCache.set(
+    page.url,
+    image
+  );
+
+}
+
+function preloadAround(){
+
+  const pages =
+    state.pages;
+
+  preloadPage(
+    pages[state.index]
+  );
+
+  preloadPage(
+    pages[state.index - 1]
+  );
+
+  preloadPage(
+    pages[state.index + 1]
+  );
+
+  preloadPage(
+    pages[state.index + 2]
+  );
+
+}
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function render(){
+
+  if(!state.pages.length) return;
+
+  const current =
+    state.pages[state.index];
+
+  const next =
+    state.pages[state.index + 1];
+
+  const previous =
+    state.pages[state.index - 1];
+
+  currentImg.src =
+    current.url;
+
+  currentImg.alt =
+    `Lore page ${current.pageNumber}`;
+
+  if(next){
+
+    nextImg.src =
+      next.url;
+
+    nextPage.style.display =
+      "block";
+
+  }else{
+
+    nextImg.removeAttribute("src");
+
+    nextPage.style.display =
+      "none";
+
+  }
+
+  const number =
+    String(current.pageNumber)
+      .padStart(3,"0");
+
+  counter.textContent =
+    `PAGE ${number}`;
+
+  preloadAround();
+
+  updateButtons();
+
+}
+
+function updateButtons(){
+
+  const navigation =
+    state.settings.navigation;
+
+  const showButtons =
+    navigation === "buttons" ||
+    navigation === "both";
+
+  hud.classList.toggle(
+    "visible",
+    state.opened && showButtons
+  );
+
+}
+
+/* =========================================================
+   COVER
+   ========================================================= */
+
+function openBook(){
+
+  if(state.opened) return;
+
+  state.opened = true;
+
+  cover.style.transform = "";
+
+  cover.classList.add("open");
+
+  book.classList.add("open");
+
+  hint.classList.add("hidden");
+
+  playCoverSound(true);
+
+  updateButtons();
+
+  setTimeout(() => {
+
+    cover.style.pointerEvents =
+      "none";
+
+  },1050);
+
+}
+
+function closeBook(){
+
+  if(!state.opened) return;
+
+  state.opened = false;
+
+  cover.style.pointerEvents =
+    "auto";
+
+  cover.style.transform = "";
+
+  cover.classList.remove("open");
+
+  book.classList.remove("open");
+
+  hud.classList.remove("visible");
+
+  hint.classList.remove("hidden");
+
+  playCoverSound(false);
+
+}
+
+/* =========================================================
+   PAGE TURN
+   ========================================================= */
+
+function setupTurn(direction){
+
+  if(state.busy) return false;
+
+  const total =
+    state.pages.length;
+
+  if(direction > 0){
+
+    if(state.index >= total - 1){
+
+      return false;
+
+    }
+
+    const current =
+      state.pages[state.index];
+
+    turnImg.src =
+      current.url;
+
+    turnPage.style.display =
+      "block";
+
+    turnPage.style.transform =
+      "rotateY(0deg)";
+
+    pageShadow.style.opacity =
+      "0";
+
+  }else{
+
+    if(state.index <= 0){
+
+      return false;
+
+    }
+
+    const previous =
+      state.pages[state.index - 1];
+
+    turnImg.src =
+      previous.url;
+
+    turnPage.style.display =
+      "block";
+
+    turnPage.style.transform =
+      "rotateY(-180deg)";
+
+    pageShadow.style.opacity =
+      "0";
+
+  }
+
+  state.turn = {
+
+    direction,
+
+    start:
+      performance.now(),
+
+    progress:0
+
+  };
+
+  return true;
+
+}
+
+/* =========================================================
+   TURN VISUAL
+   ========================================================= */
+
+function applyTurn(progress){
+
+  if(!state.turn) return;
+
+  const direction =
+    state.turn.direction;
+
+  const p =
+    Math.max(
+      0,
+      Math.min(
+        1,
+        progress
+      )
+    );
+
+  state.turn.progress = p;
+
+  const mode =
+    state.settings.turn;
+
+  if(mode === "instant"){
+
+    turnPage.style.transform =
+      direction > 0
+        ? "rotateY(-180deg)"
+        : "rotateY(0deg)";
+
+    pageShadow.style.opacity = "0";
+
+    return;
+
+  }
+
+  if(direction > 0){
+
+    const angle =
+      -180 * p;
+
+    turnPage.style.transform =
+      `rotateY(${angle}deg)`;
+
+  }else{
+
+    const angle =
+      -180 + 180 * p;
+
+    turnPage.style.transform =
+      `rotateY(${angle}deg)`;
+
+  }
+
+  if(mode === "realistic"){
+
+    const shadow =
+      Math.sin(Math.PI * p) *
+      .55;
+
+    pageShadow.style.opacity =
+      String(shadow);
+
+  }else{
+
+    const shadow =
+      Math.sin(Math.PI * p) *
+      .28;
+
+    pageShadow.style.opacity =
+      String(shadow);
+
+  }
+
+}
+
+function finishTurn(complete){
+
+  if(!state.turn) return;
+
+  const turn =
+    state.turn;
+
+  const duration =
+    state.settings.turn === "instant"
+      ? 0
+      : state.settings.turn === "smooth"
+        ? 360
+        : 620;
+
+  const target =
+    complete ? 1 : 0;
+
+  state.busy = true;
+
+  turnPage.style.transition =
+    duration
+      ? `transform ${duration}ms cubic-bezier(.22,.61,.36,1)`
+      : "none";
+
+  requestAnimationFrame(() => {
+
+    applyTurn(target);
+
+  });
+
+  setTimeout(() => {
+
+    if(complete){
+
+      state.index +=
+        turn.direction;
+
+      render();
+
+      playPaperSound(
+        turn.direction
+      );
+
+    }
+
+    turnPage.style.transition =
+      "none";
+
+    turnPage.style.display =
+      "none";
+
+    turnPage.style.transform =
+      "";
+
+    pageShadow.style.opacity =
+      "0";
+
+    state.turn = null;
+
+    state.busy = false;
+
+  },duration + 20);
+
+}
+
+/* =========================================================
+   BUTTON NAVIGATION
+   ========================================================= */
+
+function nextPageAction(){
+
+  if(!state.opened) return;
+
+  if(state.busy) return;
+
+  if(
+    state.index >=
+    state.pages.length - 1
+  ){
+
+    return;
+
+  }
+
+  if(
+    state.settings.turn === "instant"
+  ){
+
+    state.index++;
+
+    render();
+
+    playPaperSound(1);
+
+    return;
+
+  }
+
+  if(
+    setupTurn(1)
+  ){
+
+    finishTurn(true);
+
+  }
+
+}
+
+function previousPageAction(){
+
+  if(!state.opened) return;
+
+  if(state.busy) return;
+
+  if(state.index <= 0){
+
+    return;
+
+  }
+
+  if(
+    state.settings.turn === "instant"
+  ){
+
+    state.index--;
+
+    render();
+
+    playPaperSound(-1);
+
+    return;
+
+  }
+
+  if(
+    setupTurn(-1)
+  ){
+
+    finishTurn(true);
+
+  }
+
+}
+
+$("nextBtn").addEventListener(
+  "click",
+  nextPageAction
+);
+
+$("prevBtn").addEventListener(
+  "click",
+  previousPageAction
+);
+
+/* =========================================================
+   COVER POINTER
+   ========================================================= */
+
+cover.addEventListener(
+  "pointerup",
+  event => {
+
+    if(
+      performance.now() <
+      state.suppressClickUntil
+    ){
+
+      return;
+
+    }
+
+    if(
+      !state.opened &&
+      !state.drag
+    ){
+
+      openBook();
+
+    }
+
+  }
+);
+
+/* =========================================================
+   ADVANCED TOUCH SYSTEM
+   ========================================================= */
+
+function navigationAllowsSwipe(){
+
+  return (
+    state.settings.navigation === "swipe" ||
+    state.settings.navigation === "both"
+  );
+
+}
+
+book.addEventListener(
+  "pointerdown",
+  event => {
+
+    if(!navigationAllowsSwipe()) return;
+
+    if(state.busy) return;
+
+    if(
+      event.pointerType === "mouse" &&
+      event.button !== 0
+    ){
+
+      return;
+
+    }
+
+    /*
+      IMPORTANT FIX:
+
+      The old version had lastTime but later
+      referenced state.time.
+
+      This version initializes BOTH correctly.
+    */
+
+    const now =
+      performance.now();
+
+    state.drag = {
+
+      id:event.pointerId,
+
+      x:event.clientX,
+
+      y:event.clientY,
+
+      startX:event.clientX,
+
+      startY:event.clientY,
+
+      lastX:event.clientX,
+
+      lastY:event.clientY,
+
+      startTime:now,
+
+      time:now,
+
+      lastTime:now,
+
+      lastMoveTime:now,
+
+      dx:0,
+
+      dy:0,
+
+      velocityX:0,
+
+      locked:false,
+
+      horizontal:false,
+
+      direction:0,
+
+      coverPull:false
+
+    };
+
+    book.classList.add(
+      "dragging"
+    );
+
+    try{
+
+      book.setPointerCapture(
+        event.pointerId
+      );
+
+    }catch(e){}
+
+  },
+  {passive:false}
+);
+
+book.addEventListener(
+  "pointermove",
+  event => {
+
+    const drag =
+      state.drag;
+
+    if(!drag) return;
+
+    if(
+      event.pointerId !== drag.id
+    ){
+
+      return;
+
+    }
+
+    const now =
+      performance.now();
+
+    const totalDx =
+      event.clientX -
+      drag.startX;
+
+    const totalDy =
+      event.clientY -
+      drag.startY;
+
+    drag.dx =
+      totalDx;
+
+    drag.dy =
+      totalDy;
+
+    const frameDx =
+      event.clientX -
+      drag.lastX;
+
+    const frameDt =
+      Math.max(
+        1,
+        now - drag.lastMoveTime
+      );
+
+    drag.velocityX =
+      frameDx / frameDt;
+
+    drag.lastX =
+      event.clientX;
+
+    drag.lastY =
+      event.clientY;
+
+    drag.lastMoveTime =
+      now;
+
+    drag.time =
+      now;
+
+    /*
+      Don't steal the gesture immediately.
+
+      First determine whether the user is
+      actually moving horizontally.
+    */
+
+    if(!drag.locked){
+
+      const distance =
+        Math.hypot(
+          totalDx,
+          totalDy
+        );
+
+      const threshold =
+        sensitivityConfig[
+          state.settings.sensitivity
+        ].dragStart;
+
+      if(distance < threshold){
+
+        return;
+
+      }
+
+      drag.locked = true;
+
+      drag.horizontal =
+        Math.abs(totalDx) >
+        Math.abs(totalDy) * 1.15;
+
+      if(!drag.horizontal){
+
+        return;
+
+      }
+
+      drag.direction =
+        totalDx < 0 ? 1 : -1;
+
+      /*
+        Cover interaction.
+
+        Right swipe on the first page
+        pulls the cover closed.
+      */
+
+      if(
+        !state.opened
+      ){
+
+        return;
+
+      }
+
+      if(
+        state.index === 0 &&
+        totalDx > 0
+      ){
+
+        drag.coverPull = true;
+
+      }else{
+
+        if(
+          !setupTurn(
+            drag.direction
+          )
+        ){
+
+          drag.horizontal = false;
+
+          return;
+
+        }
+
+      }
+
+    }
+
+    if(!drag.horizontal) return;
+
+    event.preventDefault();
+
+    /*
+      COVER PULL
+    */
+
+    if(drag.coverPull){
+
+      const width =
+        bookWrap.clientWidth;
+
+      const progress =
+        Math.max(
+          0,
+          Math.min(
+            1,
+            totalDx /
+            (width * .72)
+          )
+        );
+
+      const angle =
+        -168 +
+        168 * progress;
+
+      cover.style.transition =
+        "none";
+
+      cover.style.transform =
+        `rotateY(${angle}deg)`;
+
+      return;
+
+    }
+
+    /*
+      PAGE TURN
+
+      Direction is locked when the gesture
+      becomes horizontal. This prevents a
+      diagonal gesture from changing direction.
+    */
+
+    const width =
+      bookWrap.clientWidth;
+
+    const progress =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          Math.abs(totalDx) /
+          (width * .95)
+        )
+      );
+
+    const direction =
+      drag.direction;
+
+    const normalized =
+      direction === 1
+        ? progress
+        : progress;
+
+    applyTurn(normalized);
+
+  },
+  {passive:false}
+);
+
+function endPointer(event){
+
+  const drag =
+    state.drag;
+
+  if(!drag) return;
+
+  if(
+    event.pointerId !== drag.id
+  ){
+
+    return;
+
+  }
+
+  const now =
+    performance.now();
+
+  const elapsed =
+    Math.max(
+      1,
+      now - drag.startTime
+    );
+
+  const totalDx =
+    drag.dx;
+
+  const totalDy =
+    drag.dy;
+
+  const absDx =
+    Math.abs(totalDx);
+
+  const absDy =
+    Math.abs(totalDy);
+
+  const width =
+    bookWrap.clientWidth;
+
+  const sensitivity =
+    sensitivityConfig[
+      state.settings.sensitivity
+    ];
+
+  /*
+    COVER
+  */
+
+  if(drag.coverPull){
+
+    const progress =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          absDx /
+          (width * .72)
+        )
+      );
+
+    const velocity =
+      absDx / elapsed;
+
+    const shouldClose =
+      progress > .25 ||
+      velocity > sensitivity.velocity;
+
+    if(shouldClose){
+
+      state.suppressClickUntil =
+        performance.now() + 500;
+
+      cover.style.transition =
+        "transform .55s cubic-bezier(.22,.61,.36,1)";
+
+      cover.style.transform =
+        "rotateY(0deg)";
+
+      setTimeout(() => {
+
+        closeBook();
+
+      },20);
+
+    }else{
+
+      cover.style.transition =
+        "transform .42s cubic-bezier(.22,.61,.36,1)";
+
+      cover.style.transform =
+        "rotateY(-168deg)";
+
+      setTimeout(() => {
+
+        cover.style.transition =
+          "";
+
+      },450);
+
+    }
+
+    state.drag = null;
+
+    book.classList.remove(
+      "dragging"
+    );
+
+    return;
+
+  }
+
+  /*
+    PAGE TURN
+  */
+
+  if(
+    drag.horizontal &&
+    state.turn
+  ){
+
+    const progress =
+      Math.max(
+        0,
+        Math.min(
+          1,
+          absDx /
+          (width * .95)
+        )
+      );
+
+    const velocity =
+      absDx / elapsed;
+
+    const shouldComplete =
+      progress >= sensitivity.distance ||
+      velocity >= sensitivity.velocity;
+
+    if(shouldComplete){
+
+      state.suppressClickUntil =
+        performance.now() + 500;
+
+      finishTurn(true);
+
+    }else{
+
+      state.suppressClickUntil =
+        performance.now() + 350;
+
+      finishTurn(false);
+
+    }
+
+  }
+
+  state.drag = null;
+
+  book.classList.remove(
+    "dragging"
+  );
+
+  try{
+
+    book.releasePointerCapture(
+      event.pointerId
+    );
+
+  }catch(e){}
+
+}
+
+book.addEventListener(
+  "pointerup",
+  endPointer,
+  {passive:false}
+);
+
+book.addEventListener(
+  "pointercancel",
+  endPointer,
+  {passive:false}
+);
+
+book.addEventListener(
+  "lostpointercapture",
+  event => {
+
+    if(state.drag){
+
+      endPointer(event);
+
+    }
+
+  }
+);
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Escape"){
+
+      settingsPanel.classList.remove(
+        "open"
+      );
+
+      return;
+
+    }
+
+    if(!state.opened) return;
+
+    if(event.key === "ArrowRight"){
+
+      event.preventDefault();
+
+      nextPageAction();
+
+    }
+
+    if(event.key === "ArrowLeft"){
+
+      event.preventDefault();
+
+      previousPageAction();
+
+    }
+
+  }
+);
+
+/* =========================================================
+   NAVIGATION VISIBILITY
+   ========================================================= */
+
+function updateNavigationVisibility(){
+
+  const mode =
+    state.settings.navigation;
+
+  const buttons =
+    mode === "buttons" ||
+    mode === "both";
+
+  const swipe =
+    mode === "swipe" ||
+    mode === "both";
+
+  hud.classList.toggle(
+    "visible",
+    state.opened && buttons
+  );
+
+  book.style.touchAction =
+    swipe
+      ? "none"
+      : "auto";
+
+}
+
+/* =========================================================
+   PRIMORDIAL CANVAS
+   ========================================================= */
+
+let particles = [];
+
+let clouds = [];
+
+let canvasWidth = 0;
+
+let canvasHeight = 0;
+
+function resizeCanvas(){
+
+  const dpr =
+    Math.min(
+      window.devicePixelRatio || 1,
+      2
+    );
+
+  canvasWidth =
+    window.innerWidth;
+
+  canvasHeight =
+    window.innerHeight;
+
+  primordial.width =
+    Math.floor(
+      canvasWidth * dpr
+    );
+
+  primordial.height =
+    Math.floor(
+      canvasHeight * dpr
+    );
+
+  ctx.setTransform(
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
+  );
+
+  createAtmosphere();
+
+}
+
+function random(min,max){
+
+  return (
+    Math.random() *
+    (max - min)
+  ) + min;
+
+}
+
+function createAtmosphere(){
+
+  particles = [];
+
+  const count =
+    Math.min(
+      75,
+      Math.floor(
+        canvasWidth *
+        canvasHeight /
+        18000
+      )
+    );
+
+  for(let i=0;i<count;i++){
+
+    particles.push({
+
+      x:random(0,canvasWidth),
+
+      y:random(0,canvasHeight),
+
+      radius:random(.3,1.6),
+
+      speed:random(.05,.23),
+
+      angle:random(0,Math.PI*2),
+
+      drift:random(.001,.004),
+
+      alpha:random(.08,.42)
+
+    });
+
+  }
+
+  clouds = [
+
+    {
+      x:canvasWidth*.23,
+      y:canvasHeight*.48,
+      r:canvasWidth*.24,
+      alpha:.045
+    },
+
+    {
+      x:canvasWidth*.75,
+      y:canvasHeight*.54,
+      r:canvasWidth*.28,
+      alpha:.035
+    },
+
+    {
+      x:canvasWidth*.5,
+      y:canvasHeight*.9,
+      r:canvasWidth*.42,
+      alpha:.03
+    }
+
+  ];
+
+}
+
+function drawAtmosphere(time){
+
+  if(
+    state.settings.atmosphere === "off"
+  ){
+
+    ctx.clearRect(
+      0,
+      0,
+      canvasWidth,
+      canvasHeight
+    );
+
+    return;
+
+  }
+
+  ctx.clearRect(
+    0,
+    0,
+    canvasWidth,
+    canvasHeight
+  );
+
+  /*
+    Deep void base
+  */
+
+  const base =
+    ctx.createRadialGradient(
+      canvasWidth*.5,
+      canvasHeight*.5,
+      0,
+      canvasWidth*.5,
+      canvasHeight*.5,
+      Math.max(
+        canvasWidth,
+        canvasHeight
+      )*.72
+    );
+
+  base.addColorStop(
+    0,
+    "rgba(34,27,15,.18)"
+  );
+
+  base.addColorStop(
+    .38,
+    "rgba(12,13,17,.05)"
+  );
+
+  base.addColorStop(
+    1,
+    "rgba(0,0,0,.75)"
+  );
+
+  ctx.fillStyle = base;
+
+  ctx.fillRect(
+    0,
+    0,
+    canvasWidth,
+    canvasHeight
+  );
+
+  /*
+    Slow primordial clouds
+  */
+
+  clouds.forEach((cloud,index) => {
+
+    const drift =
+      Math.sin(
+        time*.00006 +
+        index*2.1
+      ) * 45;
+
+    const gradient =
+      ctx.createRadialGradient(
+        cloud.x + drift,
+        cloud.y,
+        0,
+        cloud.x + drift,
+        cloud.y,
+        cloud.r
+      );
+
+    gradient.addColorStop(
+      0,
+      `rgba(113,84,35,${cloud.alpha})`
+    );
+
+    gradient.addColorStop(
+      .45,
+      `rgba(56,43,23,${cloud.alpha*.45})`
+    );
+
+    gradient.addColorStop(
+      1,
+      "rgba(0,0,0,0)"
+    );
+
+    ctx.fillStyle =
+      gradient;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      cloud.x + drift,
+      cloud.y,
+      cloud.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fill();
+
+  });
+
+  /*
+    Primordial particles
+  */
+
+  particles.forEach(p => {
+
+    p.angle += p.drift;
+
+    p.x +=
+      Math.cos(p.angle) *
+      p.speed;
+
+    p.y -=
+      p.speed *
+      .35;
+
+    if(p.y < -10)
+      p.y = canvasHeight + 10;
+
+    if(p.x < -10)
+      p.x = canvasWidth + 10;
+
+    if(p.x > canvasWidth + 10)
+      p.x = -10;
+
+    const pulse =
+      .65 +
+      Math.sin(
+        time*.0005 +
+        p.x
+      )*.35;
+
+    ctx.beginPath();
+
+    ctx.arc(
+      p.x,
+      p.y,
+      p.radius,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle =
+      `rgba(191,158,88,${p.alpha*pulse})`;
+
+    ctx.fill();
+
+  });
+
+}
+
+function animateAtmosphere(time){
+
+  drawAtmosphere(time);
+
+  requestAnimationFrame(
+    animateAtmosphere
+  );
+
+}
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+/* =========================================================
+   PERIODIC PAGE REFRESH
+   ========================================================= */
+
+let refreshTimer = null;
+
+function startRefresh(){
+
+  clearInterval(
+    refreshTimer
+  );
+
+  refreshTimer =
+    setInterval(
+      () => {
+
+        /*
+          Reload GitHub page metadata periodically.
+
+          The SHA is used in the image URL,
+          so replacing 003.png automatically
+          produces a fresh URL.
+        */
+
+        loadPages();
+
+      },
+      30000
+    );
+
+}
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+async function init(){
+
+  loadSettings();
+
+  applySettings();
+
+  resizeCanvas();
+
+  requestAnimationFrame(
+    animateAtmosphere
+  );
+
+  /*
+    Ensure cover uses the latest
+    GitHub version.
+  */
+
+  const coverImage =
+    $("coverImage");
+
+  coverImage.src =
+    `${COVER_URL}?v=${Date.now()}`;
+
+  await loadPages();
+
+  startRefresh();
+
+  setTimeout(() => {
+
+    $("loading").classList.add(
+      "hidden"
+    );
+
+  },500);
+
+}
+
+/* =========================================================
+   START
+   ========================================================= */
+
+init();
+
+</script>
+
+</body>
+</html>
