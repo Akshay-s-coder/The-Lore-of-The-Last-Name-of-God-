@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#020205">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>The Lore of The Last Name of God</title>
+
+<style>
+:root{
+  --bg:#020205;
+  --gold:#d6b56b;
+  --text:#eee8dc;
+  --muted:#aaa294;
+  --ease:cubic-bezier(.22,.61,.36,1)
+}
+
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  margin:0;
+  overflow:hidden;
+  background:#020205;
+  color:var(--text)
+}
+
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  user-select:none;
+  -webkit-user-select:none;
+  overscroll-behavior:none
+}
+
+button{
+  font:inherit;
+  color:inherit
+}
+
+#app{
+  position:fixed;
+  inset:0;
+  overflow:hidden;
+  background:#020205
+}
+
+/* =========================================================
+   PRIMORDIAL ATMOSPHERE
+   ========================================================= */
+
+#primordial{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+  display:block;
+  transition:opacity .7s ease
+}
+
+#vignette{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0,0,0,0) 15%,
+      rgba(0,0,0,.18) 52%,
+      rgba(0,0,0,.78) 100%
+    )
+}
+
+#grain{
+  position:absolute;
+  inset:-50%;
+  z-index:2;
+  pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain .2s steps(2) infinite
+}
+
+@keyframes grain{
+  0%{transform:translate(0,0)}
+  25%{transform:translate(1%,-1%)}
+  50%{transform:translate(-1%,1%)}
+  75%{transform:translate(1%,1%)}
+  100%{transform:translate(-1%,-1%)}
+}
+
+/* =========================================================
+   BOOK
+   ========================================================= */
+
+#stage{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:grid;
+  place-items:center;
+  padding:16px;
+  perspective:2600px
+}
+
+#bookFrame{
+  position:relative;
+  width:min(94vw,calc(94vh * 1.7777778));
+  aspect-ratio:16/9;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 34px 54px rgba(0,0,0,.72))
+}
+
+#book{
+  position:absolute;
+  inset:0;
+  transform-style:preserve-3d;
+  touch-action:none
+}
+
+.page{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#080808;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden
+}
+
+.page img,
+.face img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  pointer-events:none;
+  -webkit-user-drag:none
+}
+
+#under{z-index:3}
+#current{z-index:4}
+
+#turn{
+  position:absolute;
+  inset:0;
+  z-index:20;
+  display:none;
+  transform-style:preserve-3d;
+  transform-origin:left center;
+  will-change:transform;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden
+}
+
+.face{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+  background:#080808;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden
+}
+
+.face.back{
+  transform:rotateY(180deg)
+}
+
+#turnShade{
+  position:absolute;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.68),
+    rgba(0,0,0,0) 38%
+  )
+}
+
+#turnEdge{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  width:2px;
+  z-index:31;
+  pointer-events:none;
+  opacity:0;
+  background:linear-gradient(
+    180deg,
+    transparent,
+    rgba(255,255,255,.28),
+    transparent
+  )
+}
+
+/* =========================================================
+   COVER
+   ========================================================= */
+
+#cover{
+  position:absolute;
+  inset:0;
+  z-index:50;
+  overflow:hidden;
+  background:#030303;
+  transform-origin:left center;
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  cursor:pointer;
+  will-change:transform;
+  transition:
+    transform .92s var(--ease),
+    box-shadow .92s ease;
+  box-shadow:
+    inset 0 0 0 1px rgba(214,181,107,.2),
+    0 16px 55px rgba(0,0,0,.58)
+}
+
+#cover.open{
+  transform:rotateY(-168deg);
+  pointer-events:none
+}
+
+#coverImage{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  pointer-events:none;
+  -webkit-user-drag:none
+}
+
+#coverFallback{
+  position:absolute;
+  inset:0;
+  display:none;
+  place-items:center;
+  text-align:center;
+  background:
+    radial-gradient(
+      circle at 50% 43%,
+      rgba(146,104,38,.18),
+      transparent 31%
+    ),
+    linear-gradient(135deg,#0b0907,#020203 68%,#080604)
+}
+
+#coverFallbackInner{
+  font-size:clamp(24px,4.2vw,68px);
+  letter-spacing:.08em;
+  line-height:1.05;
+  text-transform:uppercase;
+  text-shadow:0 5px 30px #000
+}
+
+#coverSpine{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:linear-gradient(
+    90deg,
+    #000,
+    rgba(214,181,107,.28),
+    #000
+  )
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+#settingsBtn{
+  position:fixed;
+  top:max(13px,env(safe-area-inset-top));
+  right:max(13px,env(safe-area-inset-right));
+  z-index:100;
+  width:42px;
+  height:42px;
+  padding:0;
+  border-radius:50%;
+  border:1px solid rgba(214,181,107,.23);
+  background:rgba(5,5,8,.62);
+  backdrop-filter:blur(15px);
+  -webkit-backdrop-filter:blur(15px);
+  display:grid;
+  place-items:center;
+  color:#cbb37e;
+  cursor:pointer;
+  box-shadow:0 8px 28px rgba(0,0,0,.35)
+}
+
+#settingsBtn:active{
+  transform:scale(.92)
+}
+
+#settingsBtn svg{
+  width:19px;
+  height:19px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.5;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+
+#settings{
+  position:fixed;
+  top:max(62px,calc(env(safe-area-inset-top) + 52px));
+  right:max(13px,env(safe-area-inset-right));
+  z-index:101;
+  width:min(330px,calc(100vw - 26px));
+  padding:17px;
+  border:1px solid rgba(214,181,107,.22);
+  border-radius:17px;
+  background:rgba(7,7,11,.91);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  box-shadow:0 25px 80px rgba(0,0,0,.72);
+  opacity:0;
+  transform:translateY(-8px) scale(.98);
+  pointer-events:none;
+  transition:
+    opacity .22s ease,
+    transform .22s var(--ease);
+  font-family:Arial,Helvetica,sans-serif
+}
+
+#settings.open{
+  opacity:1;
+  transform:none;
+  pointer-events:auto
+}
+
+.settingsHead{
+  height:25px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:#dfc994;
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase
+}
+
+#closeSettings{
+  width:28px;
+  height:28px;
+  border:0;
+  background:none;
+  color:#aaa295;
+  font-size:22px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  padding:0
+}
+
+.setting{
+  padding:12px 0;
+  border-top:1px solid rgba(255,255,255,.055)
+}
+
+.setting:first-of-type{
+  margin-top:2px
+}
+
+.settingLabel{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:8px;
+  color:#bcb5a7;
+  font-size:9px;
+  letter-spacing:.13em;
+  text-transform:uppercase
+}
+
+.settingValue{
+  color:#d7c18d;
+  white-space:nowrap
+}
+
+.optionGrid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px
+}
+
+.option{
+  min-width:0;
+  height:34px;
+  padding:0 4px;
+  border-radius:7px;
+  border:1px solid rgba(214,181,107,.12);
+  background:rgba(255,255,255,.025);
+  color:#87827a;
+  font-family:Arial,Helvetica,sans-serif;
+  font-size:9px;
+  letter-spacing:.04em;
+  cursor:pointer
+}
+
+.option.active{
+  border-color:rgba(214,181,107,.43);
+  background:rgba(214,181,107,.09);
+  color:#e0ca97
+}
+
+.toggleRow{
+  min-height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.toggleRow .settingLabel{
+  margin:0
+}
+
+.toggle{
+  width:45px;
+  height:24px;
+  border:1px solid rgba(214,181,107,.2);
+  border-radius:20px;
+  background:#17181c;
+  position:relative;
+  padding:0;
+  cursor:pointer;
+  flex:0 0 auto
+}
+
+.toggle::after{
+  content:"";
+  position:absolute;
+  top:2px;
+  left:3px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#77736b;
+  transition:.2s var(--ease)
+}
+
+.toggle.active{
+  background:rgba(214,181,107,.17);
+  border-color:rgba(214,181,107,.43)
+}
+
+.toggle.active::after{
+  left:22px;
+  background:#d8bd82
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+#controls{
+  position:fixed;
+  left:50%;
+  bottom:max(13px,env(safe-area-inset-bottom));
+  z-index:60;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:11px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .28s ease
+}
+
+#controls.show{
+  opacity:1;
+  pointer-events:auto
+}
+
+.navBtn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:1px solid rgba(214,181,107,.2);
+  background:rgba(4,5,8,.63);
+  backdrop-filter:blur(13px);
+  -webkit-backdrop-filter:blur(13px);
+  display:grid;
+  place-items:center;
+  color:#d0ba89;
+  cursor:pointer;
+  padding:0
+}
+
+.navBtn:active{
+  transform:scale(.93)
+}
+
+.navBtn svg{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.6;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+
+#pageCount{
+  min-width:100px;
+  text-align:center;
+  color:#a9a294;
+  font:9px Arial,Helvetica,sans-serif;
+  letter-spacing:.2em
+}
+
+/* =========================================================
+   LOADING
+   ========================================================= */
+
+#loading{
+  position:fixed;
+  inset:0;
+  z-index:200;
+  background:#020205;
+  display:grid;
+  place-items:center;
+  transition:
+    opacity .5s ease,
+    visibility .5s ease
+}
+
+#loading.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none
+}
+
+.spinner{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  border:1px solid rgba(214,181,107,.14);
+  border-top-color:#d6b56b;
+  animation:spin 1s linear infinite
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+@media(max-width:700px){
+  #stage{padding:8px}
+  #bookFrame{width:96vw}
+  #settings{
+    right:9px;
+    width:min(318px,calc(100vw - 18px))
+  }
+  #settingsBtn{right:9px}
+  .navBtn{
+    width:40px;
+    height:40px
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app">
+
+<canvas id="primordial"></canvas>
+<div id="vignette"></div>
+<div id="grain"></div>
+
+<!-- SETTINGS BUTTON -->
+<button id="settingsBtn" aria-label="Open settings">
+<svg viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.2h-2.5v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8.1 15a1.7 1.7 0 0 0-1.5-1H6.4v-2.5h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-1.8.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.2H15v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.2V14h-.2a1.7 1.7 0 0 0-1.5 1z"></path>
+</svg>
+</button>
+
+<!-- SETTINGS PANEL -->
+<aside id="settings">
+
+<div class="settingsHead">
+<span>Experience</span>
+<button id="closeSettings" aria-label="Close settings">×</button>
+</div>
+
+<div class="setting">
+<div class="settingLabel">
+<span>Touch sensitivity</span>
+<span class="settingValue" id="sensitivityText">Normal</span>
+</div>
+<div class="optionGrid">
+<button class="option" data-key="sensitivity" data-value="low">Low</button>
+<button class="option active" data-key="sensitivity" data-value="normal">Normal</button>
+<button class="option" data-key="sensitivity" data-value="high">High</button>
+</div>
+</div>
+
+<div class="setting">
+<div class="settingLabel">
+<span>Atmosphere</span>
+<span class="settingValue" id="atmosphereText">Primordial</span>
+</div>
+<div class="optionGrid">
+<button class="option active" data-key="atmosphere" data-value="primordial">Primordial</button>
+<button class="option" data-key="atmosphere" data-value="subtle">Subtle</button>
+<button class="option" data-key="atmosphere" data-value="off">Off</button>
+</div>
+</div>
+
+<div class="setting">
+<div class="settingLabel">
+<span>Navigation</span>
+<span class="settingValue" id="navigationText">Both</span>
+</div>
+<div class="optionGrid">
+<button class="option" data-key="navigation" data-value="swipe">Swipe</button>
+<button class="option" data-key="navigation" data-value="buttons">Buttons</button>
+<button class="option active" data-key="navigation" data-value="both">Both</button>
+</div>
+</div>
+
+<div class="setting">
+<div class="settingLabel">
+<span>Page turn</span>
+<span class="settingValue" id="turnText">Realistic</span>
+</div>
+<div class="optionGrid">
+<button class="option active" data-key="turn" data-value="realistic">Realistic</button>
+<button class="option" data-key="turn" data-value="smooth">Smooth</button>
+<button class="option" data-key="turn" data-value="instant">Instant</button>
+</div>
+</div>
+
+<div class="setting toggleRow">
+<div class="settingLabel"><span>Sound</span></div>
+<button class="toggle active" id="soundToggle" aria-label="Toggle sound"></button>
+</div>
+
+<div class="setting toggleRow">
+<div class="settingLabel"><span>Fullscreen</span></div>
+<button class="toggle" id="fullscreenToggle" aria-label="Toggle fullscreen"></button>
+</div>
+
+</aside>
+
+<!-- BOOK -->
+<main id="stage">
+
+<div id="bookFrame">
+
+<div id="book">
+
+<div id="under" class="page">
+<img alt="">
+</div>
+
+<div id="current" class="page">
+<img alt="">
+</div>
+
+<div id="turn">
+
+<div class="face front">
+<img alt="">
+</div>
+
+<div class="face back">
+<img alt="">
+</div>
+
+<div id="turnShade"></div>
+<div id="turnEdge"></div>
+
+</div>
+
+<div id="cover">
+
+<img id="coverImage" alt="The Lore of The Last Name of God">
+
+<div id="coverFallback">
+<div id="coverFallbackInner">
+THE LORE OF<br>
+THE LAST NAME<br>
+OF GOD
+</div>
+</div>
+
+<div id="coverSpine"></div>
+
+</div>
+
+</div>
+</div>
+</main>
+
+<!-- NAVIGATION BUTTONS -->
+<div id="controls">
+
+<button class="navBtn" id="prevBtn" aria-label="Previous page">
+<svg viewBox="0 0 24 24">
+<path d="M15 18l-6-6 6-6"></path>
+</svg>
+</button>
+
+<div id="pageCount"></div>
+
+<button class="navBtn" id="nextBtn" aria-label="Next page">
+<svg viewBox="0 0 24 24">
+<path d="M9 18l6-6 6 6"></path>
+</svg>
+</button>
+
+</div>
+
+<div id="loading">
+<div class="spinner"></div>
+</div>
+
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   REPOSITORY
+   ========================================================= */
+
+const REPO=
+  "Akshay-s-coder/The-Lore-of-The-Last-Name-of-God-";
+
+const BRANCH="main";
+
+const API=
+  "https://api.github.com/repos/"+
+  REPO+
+  "/contents/pages?ref="+
+  BRANCH;
+
+const RAW=
+  "https://raw.githubusercontent.com/"+
+  REPO+
+  "/"+
+  BRANCH+
+  "/pages/";
+
+const COVER=
+  "https://raw.githubusercontent.com/"+
+  REPO+
+  "/"+
+  BRANCH+
+  "/cover.png";
+
+const SETTINGS_KEY=
+  "lgn-final-settings-v1";
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const $=id=>document.getElementById(id);
+
+const book=$("book");
+const frame=$("bookFrame");
+const cover=$("cover");
+
+const currentImg=
+  $("current").querySelector("img");
+
+const underImg=
+  $("under").querySelector("img");
+
+const turn=$("turn");
+
+const frontImg=
+  turn.querySelector(".front img");
+
+const backImg=
+  turn.querySelector(".back img");
+
+const turnShade=$("turnShade");
+const turnEdge=$("turnEdge");
+
+const controls=$("controls");
+const pageCount=$("pageCount");
+
+
+/* =========================================================
+   STATE
+   ========================================================= */
+
+const defaults={
+  sensitivity:"normal",
+  atmosphere:"primordial",
+  navigation:"both",
+  turn:"realistic",
+  sound:true
+};
+
+const state={
+  pages:[],
+  index:0,
+  opened:false,
+  busy:false,
+  turning:null,
+  drag:null,
+  suppressUntil:0,
+  settings:{...defaults}
+};
+
+const SENS={
+  low:{
+    distance:.19,
+    velocity:.62,
+    lock:8
+  },
+
+  normal:{
+    distance:.105,
+    velocity:.32,
+    lock:5
+  },
+
+  high:{
+    distance:.06,
+    velocity:.20,
+    lock:3
+  }
+};
+
+const LABELS={
+  sensitivity:{
+    low:"Low",
+    normal:"Normal",
+    high:"High"
+  },
+
+  atmosphere:{
+    primordial:"Primordial",
+    subtle:"Subtle",
+    off:"Off"
+  },
+
+  navigation:{
+    swipe:"Swipe",
+    buttons:"Buttons",
+    both:"Both"
+  },
+
+  turn:{
+    realistic:"Realistic",
+    smooth:"Smooth",
+    instant:"Instant"
+  }
+};
+
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+function saveSettings(){
+  try{
+    localStorage.setItem(
+      SETTINGS_KEY,
+      JSON.stringify(state.settings)
+    );
+  }catch(e){}
+}
+
+function loadSettings(){
+
+  try{
+
+    const saved=
+      JSON.parse(
+        localStorage.getItem(SETTINGS_KEY)||"null"
+      );
+
+    if(saved){
+      state.settings={
+        ...defaults,
+        ...saved
+      };
+    }
+
+  }catch(e){}
+
+  if(!LABELS.sensitivity[state.settings.sensitivity])
+    state.settings.sensitivity="normal";
+
+  if(!LABELS.atmosphere[state.settings.atmosphere])
+    state.settings.atmosphere="primordial";
+
+  if(!LABELS.navigation[state.settings.navigation])
+    state.settings.navigation="both";
+
+  if(!LABELS.turn[state.settings.turn])
+    state.settings.turn="realistic";
+
+  state.settings.sound=
+    state.settings.sound!==false;
+}
+
+function applySettings(){
+
+  document
+    .querySelectorAll(".option")
+    .forEach(button=>{
+
+      button.classList.toggle(
+        "active",
+        state.settings[button.dataset.key]===
+        button.dataset.value
+      );
+
+    });
+
+  $("sensitivityText").textContent=
+    LABELS.sensitivity[
+      state.settings.sensitivity
+    ];
+
+  $("atmosphereText").textContent=
+    LABELS.atmosphere[
+      state.settings.atmosphere
+    ];
+
+  $("navigationText").textContent=
+    LABELS.navigation[
+      state.settings.navigation
+    ];
+
+  $("turnText").textContent=
+    LABELS.turn[
+      state.settings.turn
+    ];
+
+  $("soundToggle")
+    .classList.toggle(
+      "active",
+      state.settings.sound
+    );
+
+  applyAtmosphere();
+  updateControls();
+  saveSettings();
+}
+
+function applyAtmosphere(){
+
+  const mode=
+    state.settings.atmosphere;
+
+  $("primordial").style.opacity=
+    mode==="primordial"
+      ?"1"
+      :mode==="subtle"
+        ?".45"
+        :"0";
+
+  $("grain").style.opacity=
+    mode==="primordial"
+      ?".035"
+      :mode==="subtle"
+        ?".016"
+        :"0";
+}
+
+function swipeEnabled(){
+  return(
+    state.settings.navigation==="swipe"||
+    state.settings.navigation==="both"
+  );
+}
+
+function buttonsEnabled(){
+  return(
+    state.settings.navigation==="buttons"||
+    state.settings.navigation==="both"
+  );
+}
+
+function updateControls(){
+
+  controls.classList.toggle(
+    "show",
+    state.opened&&buttonsEnabled()
+  );
+}
+
+document
+  .querySelectorAll(".option")
+  .forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+      state.settings[
+        button.dataset.key
+      ]=
+        button.dataset.value;
+
+      applySettings();
+
+    });
+
+  });
+
+$("settingsBtn").addEventListener(
+  "click",
+  event=>{
+    event.stopPropagation();
+
+    $("settings")
+      .classList.toggle("open");
+  }
+);
+
+$("closeSettings").addEventListener(
+  "click",
+  ()=>{
+    $("settings")
+      .classList.remove("open");
+  }
+);
+
+document.addEventListener(
+  "pointerdown",
+  event=>{
+
+    const panel=$("settings");
+
+    if(
+      panel.classList.contains("open")&&
+      !panel.contains(event.target)&&
+      event.target!==$("settingsBtn")
+    ){
+
+      panel.classList.remove("open");
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+
+let audioContext=null;
+
+function getAudio(){
+
+  if(!state.settings.sound)
+    return null;
+
+  try{
+
+    if(!audioContext){
+
+      audioContext=
+        new(
+          window.AudioContext||
+          window.webkitAudioContext
+        )();
+
+    }
+
+    if(audioContext.state==="suspended"){
+      audioContext.resume();
+    }
+
+    return audioContext;
+
+  }catch(e){
+
+    return null;
+
+  }
+}
+
+function paperSound(direction){
+
+  const ac=getAudio();
+
+  if(!ac)return;
+
+  const duration=.32;
+
+  const count=
+    Math.floor(
+      ac.sampleRate*duration
+    );
+
+  const buffer=
+    ac.createBuffer(
+      1,
+      count,
+      ac.sampleRate
+    );
+
+  const data=
+    buffer.getChannelData(0);
+
+  for(let i=0;i<count;i++){
+
+    const t=i/count;
+
+    const envelope=
+      Math.sin(Math.PI*t)*
+      Math.pow(1-t,.25);
+
+    data[i]=
+      (Math.random()*2-1)*
+      envelope;
+  }
+
+  const source=
+    ac.createBufferSource();
+
+  const filter=
+    ac.createBiquadFilter();
+
+  const gain=
+    ac.createGain();
+
+  source.buffer=buffer;
+
+  filter.type="bandpass";
+
+  filter.frequency.value=
+    direction>0
+      ?1450
+      :1050;
+
+  filter.Q.value=.8;
+
+  gain.gain.value=.055;
+
+  source.connect(filter);
+  filter.connect(gain);
+  gain.connect(ac.destination);
+
+  source.start();
+  source.stop(
+    ac.currentTime+duration
+  );
+}
+
+function coverSound(opening){
+
+  const ac=getAudio();
+
+  if(!ac)return;
+
+  const oscillator=
+    ac.createOscillator();
+
+  const gain=
+    ac.createGain();
+
+  oscillator.type="triangle";
+
+  oscillator.frequency.setValueAtTime(
+    opening?84:59,
+    ac.currentTime
+  );
+
+  oscillator.frequency.exponentialRampToValueAtTime(
+    opening?42:36,
+    ac.currentTime+.55
+  );
+
+  gain.gain.setValueAtTime(
+    .0001,
+    ac.currentTime
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .038,
+    ac.currentTime+.045
+  );
+
+  gain.gain.exponentialRampToValueAtTime(
+    .0001,
+    ac.currentTime+.63
+  );
+
+  oscillator.connect(gain);
+  gain.connect(ac.destination);
+
+  oscillator.start();
+
+  oscillator.stop(
+    ac.currentTime+.67
+  );
+}
+
+
+/* =========================================================
+   PAGE LOADING
+   ========================================================= */
+
+function pageURL(name,sha){
+
+  return(
+    RAW+
+    encodeURIComponent(name)+
+    "?v="+
+    encodeURIComponent(sha||name)
+  );
+}
+
+function sortPages(files){
+
+  return files
+
+    .filter(file=>
+      file &&
+      file.type==="file" &&
+      /^\d{3}\.png$/i.test(file.name)
+    )
+
+    .map(file=>({
+
+      name:file.name,
+
+      number:
+        Number(
+          file.name.slice(0,3)
+        ),
+
+      sha:file.sha,
+
+      url:
+        pageURL(
+          file.name,
+          file.sha
+        )
+
+    }))
+
+    .sort(
+      (a,b)=>
+        a.number-b.number
+    );
+}
+
+function setImage(
+  image,
+  url,
+  alt
+){
+
+  if(url){
+
+    image.src=url;
+    image.alt=alt||"";
+
+  }else{
+
+    image.removeAttribute("src");
+    image.alt="";
+
+  }
+}
+
+function preload(page){
+
+  if(!page)return;
+
+  const image=
+    new Image();
+
+  image.decoding="async";
+
+  image.src=page.url;
+}
+
+async function loadPages(){
+
+  try{
+
+    const response=
+      await fetch(
+        API,
+        {cache:"no-store"}
+      );
+
+    if(!response.ok)
+      throw new Error(
+        "GitHub pages request failed"
+      );
+
+    const files=
+      await response.json();
+
+    state.pages=
+      sortPages(files);
+
+  }catch(error){
+
+    console.error(
+      "Could not load pages:",
+      error
+    );
+
+    state.pages=[];
+
+  }
+
+  if(state.pages.length===0){
+
+    pageCount.textContent="";
+    return;
+
+  }
+
+  if(
+    state.index>=state.pages.length
+  ){
+
+    state.index=
+      state.pages.length-1;
+
+  }
+
+  render();
+}
+
+function render(){
+
+  const current=
+    state.pages[state.index];
+
+  const next=
+    state.pages[state.index+1];
+
+  const previous=
+    state.pages[state.index-1];
+
+  setImage(
+    currentImg,
+    current?current.url:null,
+    current
+      ?"Page "+current.number
+      :""
+  );
+
+  setImage(
+    underImg,
+    next?next.url:null,
+    next
+      ?"Page "+next.number
+      :""
+  );
+
+  pageCount.textContent=
+    current
+      ?"PAGE "+
+       String(current.number)
+       .padStart(3,"0")
+      :"";
+
+  preload(current);
+  preload(previous);
+  preload(next);
+  preload(
+    state.pages[state.index+2]
+  );
+}
+
+
+/* =========================================================
+   OPEN COVER
+   ========================================================= */
+
+function openBook(){
+
+  if(
+    state.opened||
+    !state.pages.length
+  )return;
+
+  state.opened=true;
+
+  cover.style.transform="";
+  cover.classList.add("open");
+
+  $("settings")
+    .classList.remove("open");
+
+  updateControls();
+
+  coverSound(true);
+}
+
+
+/* =========================================================
+   PAGE TURNING
+   ========================================================= */
+
+function setupTurn(direction){
+
+  if(state.busy)
+    return false;
+
+  if(
+    direction===1&&
+    state.index>=state.pages.length-1
+  )
+    return false;
+
+  if(
+    direction===-1&&
+    state.index<=0
+  )
+    return false;
+
+  let front;
+  let back;
+  let startingAngle;
+
+  if(direction===1){
+
+    front=
+      state.pages[state.index];
+
+    back=
+      state.pages[state.index+1];
+
+    startingAngle=0;
+
+  }else{
+
+    front=
+      state.pages[state.index-1];
+
+    back=
+      state.pages[state.index];
+
+    startingAngle=-180;
+  }
+
+  if(!front||!back)
+    return false;
+
+  setImage(
+    frontImg,
+    front.url,
+    "Page "+front.number
+  );
+
+  setImage(
+    backImg,
+    back.url,
+    "Page "+back.number
+  );
+
+  turn.style.display="block";
+
+  turn.style.transition="none";
+
+  turn.style.transform=
+    "rotateY("+startingAngle+"deg)";
+
+  turnShade.style.opacity="0";
+  turnEdge.style.opacity="0";
+
+  state.turning={
+    direction,
+    progress:0
+  };
+
+  return true;
+}
+
+function drawTurn(progress){
+
+  if(!state.turning)
+    return;
+
+  const p=
+    Math.max(
+      0,
+      Math.min(1,progress)
+    );
+
+  const direction=
+    state.turning.direction;
+
+  state.turning.progress=p;
+
+  const angle=
+    direction===1
+      ?-180*p
+      :-180+180*p;
+
+  turn.style.transform=
+    "rotateY("+angle+"deg)";
+
+  if(
+    state.settings.turn==="realistic"
+  ){
+
+    const strength=
+      Math.sin(Math.PI*p);
+
+    turnShade.style.opacity=
+      String(.64*strength);
+
+    turnEdge.style.opacity=
+      String(.45*strength);
+
+  }else if(
+    state.settings.turn==="smooth"
+  ){
+
+    const strength=
+      Math.sin(Math.PI*p);
+
+    turnShade.style.opacity=
+      String(.30*strength);
+
+    turnEdge.style.opacity=
+      String(.18*strength);
+
+  }else{
+
+    turnShade.style.opacity="0";
+    turnEdge.style.opacity="0";
+
+  }
+}
+
+function finishTurn(commit){
+
+  if(!state.turning)
+    return;
+
+  const turning=
+    state.turning;
+
+  const mode=
+    state.settings.turn;
+
+  const duration=
+    mode==="instant"
+      ?0
+      :mode==="smooth"
+        ?300
+        :520;
+
+  state.busy=true;
+
+  turn.style.transition=
+    duration
+      ?"transform "+
+       duration+
+       "ms cubic-bezier(.22,.61,.36,1)"
+      :"none";
+
+  requestAnimationFrame(
+    ()=>{
+      drawTurn(
+        commit?1:0
+      );
+    }
+  );
+
+  setTimeout(()=>{
+
+    if(commit){
+
+      state.index+=
+        turning.direction;
+
+      render();
+
+      paperSound(
+        turning.direction
+      );
+    }
+
+    turn.style.transition="none";
+    turn.style.transform="";
+    turn.style.display="none";
+
+    turnShade.style.opacity="0";
+    turnEdge.style.opacity="0";
+
+    state.turning=null;
+    state.busy=false;
+
+  },duration+35);
+}
+
+function nextPage(){
+
+  if(
+    !state.opened||
+    state.busy||
+    state.index>=state.pages.length-1
+  )return;
+
+  if(
+    state.settings.turn==="instant"
+  ){
+
+    state.index++;
+    render();
+    paperSound(1);
+    return;
+
+  }
+
+  if(setupTurn(1))
+    finishTurn(true);
+}
+
+function prevPage(){
+
+  if(
+    !state.opened||
+    state.busy||
+    state.index<=0
+  )return;
+
+  if(
+    state.settings.turn==="instant"
+  ){
+
+    state.index--;
+    render();
+    paperSound(-1);
+    return;
+
+  }
+
+  if(setupTurn(-1))
+    finishTurn(true);
+}
+
+$("nextBtn").addEventListener(
+  "click",
+  nextPage
+);
+
+$("prevBtn").addEventListener(
+  "click",
+  prevPage
+);
+
+
+/* =========================================================
+   TOUCH
+   ========================================================= */
+
+function startDrag(event){
+
+  if(
+    !state.opened||
+    !swipeEnabled()||
+    state.busy
+  )
+    return;
+
+  if(
+    event.pointerType==="mouse"&&
+    event.button!==0
+  )
+    return;
+
+  if(
+    event.target.closest &&
+    event.target.closest("#settings")
+  )
+    return;
+
+  state.drag={
+
+    id:event.pointerId,
+
+    startX:event.clientX,
+    startY:event.clientY,
+
+    x:event.clientX,
+    y:event.clientY,
+
+    startTime:
+      performance.now(),
+
+    locked:false,
+    horizontal:false,
+    direction:0
+  };
+
+  try{
+    book.setPointerCapture(
+      event.pointerId
+    );
+  }catch(e){}
+}
+
+function moveDrag(event){
+
+  const drag=
+    state.drag;
+
+  if(
+    !drag||
+    event.pointerId!==drag.id
+  )
+    return;
+
+  drag.x=event.clientX;
+  drag.y=event.clientY;
+
+  const dx=
+    drag.x-drag.startX;
+
+  const dy=
+    drag.y-drag.startY;
+
+  if(!drag.locked){
+
+    const config=
+      SENS[
+        state.settings.sensitivity
+      ];
+
+    if(
+      Math.hypot(dx,dy)<
+      config.lock
+    )
+      return;
+
+    drag.locked=true;
+
+    drag.horizontal=
+      Math.abs(dx)>
+      Math.abs(dy)*1.12;
+
+    if(!drag.horizontal)
+      return;
+
+    drag.direction=
+      dx<0?1:-1;
+
+    if(
+      drag.direction===1&&
+      state.index>=
+      state.pages.length-1
+    ){
+
+      drag.horizontal=false;
+      return;
+
+    }
+
+    if(
+      drag.direction===-1&&
+      state.index<=0
+    ){
+
+      drag.horizontal=false;
+      return;
+
+    }
+
+    if(
+      !setupTurn(
+        drag.direction
+      )
+    ){
+
+      drag.horizontal=false;
+      return;
+
+    }
+  }
+
+  if(
+    !drag.horizontal||
+    !state.turning
+  )
+    return;
+
+  event.preventDefault();
+
+  const width=
+    Math.max(
+      1,
+      frame.getBoundingClientRect().width
+    );
+
+  drawTurn(
+    Math.abs(dx)/
+    (width*.94)
+  );
+}
+
+function endDrag(event){
+
+  const drag=
+    state.drag;
+
+  if(
+    !drag||
+    event.pointerId!==drag.id
+  )
+    return;
+
+  const dx=
+    drag.x-drag.startX;
+
+  const elapsed=
+    Math.max(
+      1,
+      performance.now()-
+      drag.startTime
+    );
+
+  const width=
+    Math.max(
+      1,
+      frame.getBoundingClientRect().width
+    );
+
+  const distanceRatio=
+    Math.abs(dx)/width;
+
+  const velocity=
+    Math.abs(dx)/elapsed;
+
+  const config=
+    SENS[
+      state.settings.sensitivity
+    ];
+
+  if(
+    drag.horizontal&&
+    state.turning
+  ){
+
+    state.suppressUntil=
+      performance.now()+600;
+
+    const commit=
+      distanceRatio>=
+      config.distance||
+      velocity>=
+      config.velocity;
+
+    finishTurn(commit);
+  }
+
+  state.drag=null;
+
+  try{
+    book.releasePointerCapture(
+      event.pointerId
+    );
+  }catch(e){}
+}
+
+book.addEventListener(
+  "pointerdown",
+  startDrag,
+  {passive:false}
+);
+
+book.addEventListener(
+  "pointermove",
+  moveDrag,
+  {passive:false}
+);
+
+book.addEventListener(
+  "pointerup",
+  endDrag,
+  {passive:false}
+);
+
+book.addEventListener(
+  "pointercancel",
+  endDrag,
+  {passive:false}
+);
+
+
+/* =========================================================
+   COVER TAP
+   ========================================================= */
+
+cover.addEventListener(
+  "pointerup",
+  event=>{
+
+    if(
+      performance.now()<
+      state.suppressUntil
+    )
+      return;
+
+    if(
+      !state.opened&&
+      !state.drag
+    ){
+
+      openBook();
+
+    }
+  }
+);
+
+
+/* =========================================================
+   SOUND
+   ========================================================= */
+
+$("soundToggle")
+  .addEventListener(
+    "click",
+    ()=>{
+      state.settings.sound=
+        !state.settings.sound;
+
+      applySettings();
+    }
+  );
+
+
+/* =========================================================
+   FULLSCREEN
+   ========================================================= */
+
+async function toggleFullscreen(){
+
+  try{
+
+    if(document.fullscreenElement){
+
+      await document.exitFullscreen();
+      return;
+
+    }
+
+    if(
+      document.documentElement
+        .requestFullscreen
+    ){
+
+      await document.documentElement
+        .requestFullscreen({
+          navigationUI:"hide"
+        });
+
+      return;
+    }
+
+    if(
+      document.documentElement
+        .webkitRequestFullscreen
+    ){
+
+      document.documentElement
+        .webkitRequestFullscreen();
+
+    }
+
+  }catch(error){
+
+    console.warn(
+      "Fullscreen unavailable",
+      error
+    );
+  }
+}
+
+$("fullscreenToggle")
+  .addEventListener(
+    "click",
+    toggleFullscreen
+  );
+
+document.addEventListener(
+  "fullscreenchange",
+  ()=>{
+    $("fullscreenToggle")
+      .classList.toggle(
+        "active",
+        !!document.fullscreenElement
+      );
+  }
+);
+
+
+/* =========================================================
+   KEYBOARD
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event=>{
+
+    if(event.key==="Escape"){
+
+      $("settings")
+        .classList.remove("open");
+
+      return;
+    }
+
+    if(!state.opened)
+      return;
+
+    if(
+      event.key==="ArrowRight"
+    )
+      nextPage();
+
+    if(
+      event.key==="ArrowLeft"
+    )
+      prevPage();
+
+  }
+);
+
+
+/* =========================================================
+   PRIMORDIAL FIELD
+   =========================================================
+   This is deliberately NOT a galaxy.
+
+   The field represents:
+
+   • The First Existence — the ancient central pressure
+   • Auren — creation / golden emergence
+   • Værion — destruction / violet-black silence
+
+   They are PRESENCES, not visible characters.
+   ========================================================= */
+
+const canvas=
+  $("primordial");
+
+const ctx=
+  canvas.getContext("2d");
+
+let W=0;
+let H=0;
+let DPR=1;
+
+let dust=[];
+let rings=[];
+let tendrils=[];
+
+function resizePrimordial(){
+
+  DPR=
+    Math.min(
+      window.devicePixelRatio||1,
+      2
+    );
+
+  W=window.innerWidth;
+  H=window.innerHeight;
+
+  canvas.width=
+    Math.floor(W*DPR);
+
+  canvas.height=
+    Math.floor(H*DPR);
+
+  canvas.style.width=
+    W+"px";
+
+  canvas.style.height=
+    H+"px";
+
+  ctx.setTransform(
+    DPR,0,0,DPR,0,0
+  );
+
+  dust=[];
+  rings=[];
+  tendrils=[];
+
+  const amount=
+    Math.min(
+      95,
+      Math.max(
+        35,
+        Math.floor(W*H/18000)
+      )
+    );
+
+  for(
+    let i=0;
+    i<amount;
+    i++
+  ){
+
+    dust.push({
+
+      angle:
+        Math.random()*
+        Math.PI*2,
+
+      radius:
+        .18+
+        Math.random()*.82,
+
+      speed:
+        .000006+
+        Math.random()*.000018,
+
+      size:
+        .25+
+        Math.random()*1.1,
+
+      alpha:
+        .035+
+        Math.random()*.18,
+
+      phase:
+        Math.random()*
+        Math.PI*2
+
+    });
+  }
+
+  for(
+    let i=0;
+    i<5;
+    i++
+  ){
+
+    rings.push({
+
+      radius:
+        .16+
+        i*.105,
+
+      speed:
+        i%2
+          ?-.000012
+          :.000009,
+
+      alpha:
+        .018+
+        Math.random()*.018,
+
+      phase:
+        Math.random()*
+        Math.PI*2
+    });
+  }
+
+  for(
+    let i=0;
+    i<9;
+    i++
+  ){
+
+    tendrils.push({
+
+      side:
+        i%2===0
+          ?-1
+          :1,
+
+      phase:
+        Math.random()*
+        Math.PI*2,
+
+      length:
+        .28+
+        Math.random()*.25,
+
+      width:
+        .0007+
+        Math.random()*.0014
+    });
+  }
+}
+
+function radialField(
+  x,
+  y,
+  radius,
+  inner,
+  outer
+){
+
+  const gradient=
+    ctx.createRadialGradient(
+      x,y,0,
+      x,y,radius
+    );
+
+  gradient.addColorStop(
+    0,
+    inner
+  );
+
+  gradient.addColorStop(
+    .42,
+    outer
+  );
+
+  gradient.addColorStop(
+    1,
+    "rgba(0,0,0,0)"
+  );
+
+  return gradient;
+}
+
+function drawPrimordial(time){
+
+  ctx.clearRect(
+    0,0,W,H
+  );
+
+  if(
+    state.settings.atmosphere==="off"
+  ){
+
+    requestAnimationFrame(
+      drawPrimordial
+    );
+
+    return;
+  }
+
+  const t=time*.001;
+
+  const subtle=
+    state.settings.atmosphere==="subtle";
+
+  const intensity=
+    subtle?.42:1;
+
+  /* Ancient darkness */
+  ctx.fillStyle="#010104";
+
+  ctx.fillRect(
+    0,0,W,H
+  );
+
+  const cx=W*.5;
+  const cy=H*.5;
+
+  const scale=
+    Math.min(W,H);
+
+  /* FIRST EXISTENCE */
+
+  ctx.fillStyle=
+    radialField(
+      cx,
+      cy,
+      scale*.78,
+
+      "rgba(72,54,29,"+
+      (.12*intensity)+
+      ")",
+
+      "rgba(14,12,18,"+
+      (.05*intensity)+
+      ")"
+    );
+
+  ctx.fillRect(
+    0,0,W,H
+  );
+
+  /* AUREN / CREATION */
+
+  const ax=
+    W*.31+
+    Math.sin(t*.075)*
+    W*.018;
+
+  const ay=
+    H*.46+
+    Math.cos(t*.06)*
+    H*.025;
+
+  ctx.fillStyle=
+    radialField(
+      ax,
+      ay,
+      scale*.62,
+
+      "rgba(208,158,61,"+
+      (.11*intensity)+
+      ")",
+
+      "rgba(117,76,23,"+
+      (.025*intensity)+
+      ")"
+    );
+
+  ctx.fillRect(
+    0,0,W,H
+  );
+
+  /* VÆRION / DESTRUCTION */
+
+  const vx=
+    W*.70+
+    Math.cos(t*.055)*
+    W*.018;
+
+  const vy=
+    H*.55+
+    Math.sin(t*.07)*
+    H*.025;
+
+  ctx.fillStyle=
+    radialField(
+      vx,
+      vy,
+      scale*.67,
+
+      "rgba(72,37,91,"+
+      (.095*intensity)+
+      ")",
+
+      "rgba(28,12,39,"+
+      (.028*intensity)+
+      ")"
+    );
+
+  ctx.fillRect(
+    0,0,W,H
+  );
+
+  /* CENTRAL PRIMORDIAL PRESSURE */
+
+  const pulse=
+    1+
+    Math.sin(t*.18)*.018+
+    Math.sin(t*.073)*.012;
+
+  const coreRadius=
+    scale*.19*pulse;
+
+  ctx.fillStyle=
+    radialField(
+      cx,
+      cy,
+      coreRadius*2.7,
+
+      "rgba(169,121,48,"+
+      (.045*intensity)+
+      ")",
+
+      "rgba(24,19,13,0)"
+    );
+
+  ctx.fillRect(
+    0,0,W,H
+  );
+
+  /* ANCIENT RINGS */
+
+  ctx.save();
+
+  ctx.translate(
+    cx,
+    cy
+  );
+
+  rings.forEach(
+    (ring,i)=>{
+
+      ring.phase+=
+        ring.speed*8;
+
+      const radius=
+        scale*ring.radius+
+        Math.sin(
+          t*.08+i
+        )*
+        scale*.008;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        0,
+        0,
+        radius,
+        0,
+        Math.PI*2
+      );
+
+      ctx.strokeStyle=
+        "rgba(178,139,72,"+
+        ring.alpha*
+        intensity+
+        ")";
+
+      ctx.lineWidth=.55;
+
+      ctx.stroke();
+    }
+  );
+
+  ctx.restore();
+
+  /* CREATION / DESTRUCTION ARCS */
+
+  ctx.save();
+
+  tendrils.forEach(
+    (q,i)=>{
+
+      const baseX=
+        q.side<0
+          ?W*.15
+          :W*.85;
+
+      const baseY=
+        H*(.28+i*.065);
+
+      const length=
+        W*q.length;
+
+      const sway=
+        Math.sin(
+          t*.10+
+          q.phase
+        )*
+        W*.035;
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        baseX,
+        baseY
+      );
+
+      ctx.bezierCurveTo(
+
+        baseX+
+        q.side*
+        length*.30,
+
+        baseY+sway,
+
+        baseX+
+        q.side*
+        length*.68,
+
+        baseY-sway,
+
+        baseX+
+        q.side*
+        length,
+
+        baseY+
+        H*.08
+      );
+
+      const color=
+        q.side<0
+          ?"rgba(197,150,61,"
+          :"rgba(87,48,104,";
+
+      ctx.strokeStyle=
+        color+
+        (.018*intensity)+
+        ")";
+
+      ctx.lineWidth=
+        Math.max(
+          1,
+          W*q.width
+        );
+
+      ctx.stroke();
+
+    }
+  );
+
+  ctx.restore();
+
+  /* PRIMORDIAL MOTES */
+
+  dust.forEach(
+    p=>{
+
+      p.angle+=
+        p.speed*10;
+
+      const orbit=
+        p.radius+
+        Math.sin(
+          t*.11+
+          p.phase
+        )*.012;
+
+      const x=
+        cx+
+        Math.cos(p.angle)*
+        scale*
+        orbit;
+
+      const y=
+        cy+
+        Math.sin(p.angle)*
+        scale*
+        orbit*.58;
+
+      const fade=
+        .55+
+        .45*
+        Math.sin(
+          t*.23+
+          p.phase
+        );
+
+      ctx.beginPath();
+
+      ctx.arc(
+        x,
+        y,
+        p.size,
+        0,
+        Math.PI*2
+      );
+
+      ctx.fillStyle=
+        "rgba(210,174,91,"+
+        p.alpha*
+        fade*
+        intensity+
+        ")";
+
+      ctx.fill();
+    }
+  );
+
+  requestAnimationFrame(
+    drawPrimordial
+  );
+}
+
+
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
+function initCover(){
+
+  const image=
+    $("coverImage");
+
+  image.src=
+    COVER+
+    "?v="+
+    Date.now();
+
+  image.addEventListener(
+    "error",
+    ()=>{
+
+      image.style.display="none";
+
+      $("coverFallback")
+        .style.display="grid";
+
+    }
+  );
+}
+
+async function init(){
+
+  loadSettings();
+  applySettings();
+
+  initCover();
+
+  resizePrimordial();
+
+  requestAnimationFrame(
+    drawPrimordial
+  );
+
+  await loadPages();
+
+  setTimeout(
+    ()=>{
+      $("loading")
+        .classList.add("hide");
+    },
+    250
+  );
+
+  /* Automatically detect new/replaced pages */
+  setInterval(
+    loadPages,
+    45000
+  );
+}
+
+window.addEventListener(
+  "resize",
+  resizePrimordial
+);
+
+init();
+
+</script>
+
+</body>
+</html>
